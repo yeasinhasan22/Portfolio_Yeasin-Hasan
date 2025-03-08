@@ -53,13 +53,13 @@ export default function ContactSection() {
     {
       icon: <Phone className="h-5 w-5" />,
       label: "Phone",
-      value: "+1 (555) 123-4567",
+      value: "Prefer mail",
       href: "tel:+15551234567",
     },
     {
       icon: <MapPin className="h-5 w-5" />,
       label: "Location",
-      value: "San Francisco, CA",
+      value: "Dhaka, Bangladesh",
       href: "https://maps.google.com/?q=San+Francisco,+CA",
     },
   ];
@@ -67,13 +67,13 @@ export default function ContactSection() {
   const socialLinks = [
     { 
       icon: <Github className="h-5 w-5" />, 
-      url: "https://github.com", 
+      url: "https://github.com/yeasinhasan22/", 
       label: "GitHub",
       color: "#333" 
     },
     { 
       icon: <Linkedin className="h-5 w-5" />, 
-      url: "https://linkedin.com", 
+      url: "https://www.linkedin.com/in/yeasin-hasan-513064249/", 
       label: "LinkedIn",
       color: "#0077B5"
     },
