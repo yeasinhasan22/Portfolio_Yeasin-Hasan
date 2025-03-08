@@ -1,0 +1,372 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@layer base {
+  :root {
+    /* Dark Mode as Default */
+    --background: 222 47% 11%;
+    --foreground: 213 31% 91%;
+    --card: 222 47% 13%;
+    --card-foreground: 213 31% 91%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 213 31% 91%;
+    --primary: 199 89% 48%;
+    --primary-foreground: 213 31% 91%;
+    --secondary: 222 47% 20%;
+    --secondary-foreground: 213 31% 91%;
+    --muted: 222 47% 20%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 222 47% 20%;
+    --accent-foreground: 213 31% 91%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 222 47% 20%;
+    --input: 222 47% 20%;
+    --ring: 224 76.3% 48%;
+    --chart-1: 199 89% 48%;
+    --chart-2: 217 91% 60%;
+    --chart-3: 190 90% 50%;
+    --chart-4: 224 76.3% 48%;
+    --chart-5: 262 83% 58%;
+    --skills-card-bg: linear-gradient(to right, #7a746e, #3f6194);
+    --radius: 0.5rem;
+  }
+
+  .light {
+    /* Light Mode (Warm, Dark Orange Theme) */
+    --background: 34 90% 95%; /* Light warm beige */
+    --foreground: 24 45% 10%; /* Dark brown for contrast */
+    --card: 34 80% 92%;
+    --card-foreground: 24 45% 15%;
+    --popover: 34 80% 90%;
+    --popover-foreground: 24 45% 20%;
+    --primary: 24 90% 50%; /* Dark orange */
+    --primary-foreground: 34 80% 95%;
+    --secondary: 34 75% 80%;
+    --secondary-foreground: 24 45% 10%;
+    --muted: 34 75% 85%;
+    --muted-foreground: 24 45% 35%;
+    --accent: 34 75% 80%;
+    --accent-foreground: 24 45% 10%;
+    --destructive: 0 84% 55%;
+    --destructive-foreground: 24 45% 10%;
+    --border: 34 75% 75%;
+    --input: 34 75% 75%;
+    --ring: 24 90% 45%; /* Stronger dark orange */
+    --chart-1: 24 90% 50%;
+    --chart-2: 34 80% 60%;
+    --chart-3: 14 85% 55%;
+    --chart-4: 24 80% 40%;
+    --chart-5: 44 85% 70%;
+    --skills-card-bg: linear-gradient(to right, #a7b2b8, #dbd7ca);
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+.circular-menu {
+  position: fixed;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+}
+
+.menu-item {
+  position: absolute;
+  transform-origin: 100px 0;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.menu-text {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: all 0.3s;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.menu-item:hover .menu-text {
+  opacity: 1;
+  right: 60px;
+}
+
+.circular-progress {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.circular-progress svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.circular-progress .progress-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.project-card {
+  perspective: 1000px;
+  transition: all 0.5s;
+}
+
+.project-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.project-card:hover .project-card-inner {
+  transform: rotateY(180deg);
+}
+
+.project-card-front,
+.project-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.project-card-back {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.skill-item {
+  transition: all 0.3s;
+}
+
+.skill-item:hover {
+  transform: translateY(-10px);
+}
+
+.rotating-circle {
+  animation: spin 60s linear infinite;
+}
+
+.section-divider {
+  position: relative;
+  height: 150px;
+  overflow: hidden;
+}
+
+.section-divider svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.section-divider.top svg {
+  top: 0;
+}
+
+.section-divider.bottom svg {
+  bottom: 0;
+  transform: rotate(180deg);
+}
+
+.hero-gradient {
+  background: radial-gradient(circle at center, hsl(var(--primary)) 0%, transparent 70%);
+  opacity: 0.2;
+  filter: blur(100px);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.text-gradient {
+  background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--chart-2)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 50px;
+  border: 2px solid hsl(var(--primary));
+  border-radius: 15px;
+}
+
+.scroll-indicator::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  background-color: hsl(var(--primary));
+  border-radius: 50%;
+  animation: scroll 2s infinite;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(25px);
+    opacity: 0;
+  }
+}
+
+.social-icon {
+  transition: all 0.3s;
+}
+
+.social-icon:hover {
+  color: hsl(var(--primary));
+  transform: translateY(-5px);
+}
+
+.experience-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background: linear-gradient(to bottom, hsl(var(--primary)), hsl(var(--chart-2)));
+}
+
+.experience-dot {
+  position: absolute;
+  left: -8px;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: hsl(var(--background));
+  border: 2px solid hsl(var(--primary));
+}
+
+.experience-dot::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+}
+
+.skill-card {
+  background: linear-gradient(135deg, 
+    hsla(var(--primary), 0.1) 0%, 
+    hsla(var(--chart-2), 0.1) 100%
+  );
+  backdrop-filter: blur(10px);
+  border: 1px solid transparent;
+  background: var(--skills-card-bg);
+  background-clip: padding-box;
+}
+
+.skill-card:hover {
+  background: linear-gradient(135deg, 
+    hsla(var(--primary), 0.2) 0%, 
+    hsla(var(--chart-2), 0.2) 100%
+  );
+  border-color: hsla(var(--primary), 0.4);
+}
+
+.skill-icon {
+  background: linear-gradient(135deg, 
+    hsl(var(--primary)) 0%, 
+    hsl(var(--chart-2)) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
