@@ -174,10 +174,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      <div className="absolute top-6 right-24 z-40 pointer-events-auto">
-        <ThemeToggle />
-      </div>
     </div>
   );
 }

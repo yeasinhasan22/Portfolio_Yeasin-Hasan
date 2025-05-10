@@ -6,6 +6,25 @@ import { useTheme } from "next-themes";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  // Only run this effect on client-side
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Show a placeholder during SSR and initial hydration
+  if (!mounted) {
+    return (
+      <button
+        className="relative flex h-8 w-16 items-center rounded-full shadow-lg p-1 transition-all duration-300 ease-in-out bg-slate-200"
+        aria-label="Loading theme toggle"
+      >
+        <span className="absolute flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-lg border transition-all" />
+      </button>
+    );
+  }
+
   const isDark = theme === "dark";
 
   return (
