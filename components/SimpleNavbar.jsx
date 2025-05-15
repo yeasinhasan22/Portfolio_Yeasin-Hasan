@@ -7,10 +7,9 @@ import { Route, FlameKindling } from 'lucide-react';
 
 const navigationItems = [
   { name: "Home", href: "#home" },
-  { name: "Education", href: "#education" },
+  { name: "Experience", href: "#experience" },
   { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
-  { name: "Experience", href: "#experience" },
   { name: "Contact", href: "#contact" },
 ];
 
@@ -84,11 +83,11 @@ export default function SimpleNavbar() {
     <div className="left-0 right-0 flex justify-center">  
       <motion.header
         className={`fixed top-6 transform z-40 transition-all duration-500 ease-in-out ${
-          isScrolled ? "w-[90%] md:w-[70%]" : "w-[85%] md:w-[90%]"
+          isScrolled ? "w-[90%] md:w-[50%]" : "w-[80%] md:w-[90%]"
         }`}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.9 }}
       >
         <motion.nav
           className={`rounded-full justify-center border backdrop-blur-md transition-all duration-500 ${
@@ -98,7 +97,7 @@ export default function SimpleNavbar() {
           }`}
         >
           <div className="flex items-center justify-between py-4 px-6">
-            <p className="font-extrabold px-4 text-xl md:text-2xl bg-gradient-to-r from-green-200 to-blue-600 bg-clip-text text-transparent">
+            <p className="font-extrabold px-2 md:px-4 text-base md:text-2xl bg-gradient-to-r from-green-100 to-[#B5FF6D] bg-clip-text text-transparent">
                 .yeasin
             </p>
 

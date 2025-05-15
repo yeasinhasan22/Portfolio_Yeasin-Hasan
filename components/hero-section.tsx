@@ -3,24 +3,42 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Button } from "./ui/button";
-import { Github, Linkedin, Twitter, Mail, ArrowDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Github, Linkedin, Twitter, Mail } from "lucide-react";
 import { useTheme } from "next-themes";
+import gsap from "gsap";
+
+interface SocialLink {
+  icon: React.ReactNode;
+  url: string;
+  label: string;
+}
 
 export default function HeroSection() {
   const { theme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const backgroundRef = useRef<HTMLDivElement>(null);
+  const particlesRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { scrollYProgress } = useScroll();
-  
+
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
   const y = useTransform(scrollYProgress, [0, 0.2], [0, 100]);
 
+  const particleSeeds = useRef(
+    Array.from({ length: 20 }).map(() => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      offsetX: Math.random() * 20 - 10,
+      offsetY: Math.random() * 20 - 10,
+    }))
+  );
+
   useEffect(() => {
     setIsMounted(true);
-    
+
     const handleMouseMove = (e: MouseEvent) => {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
@@ -31,6 +49,54 @@ export default function HeroSection() {
       }
     };
 
+    const bgCtx = gsap.context(() => {
+      if (backgroundRef.current) {
+        gsap.to(backgroundRef.current, {
+          backgroundPosition: "200% 0%",
+          duration: 30,
+          repeat: -1,
+          yoyo: true,
+          ease: "none",
+        });
+      }
+
+      if (particlesRef.current) {
+        particlesRef.current.innerHTML = "";
+        const numParticles = 50;
+        const colors = ["#B5FF6D", "#61BEFF", "#ffffff"];
+
+        for (let i = 0; i < numParticles; i++) {
+          const particle = document.createElement("div");
+          particle.className = "absolute rounded-full particle";
+
+          const size = Math.random() * 8 + 2;
+          const x = Math.random() * 100;
+          const y = Math.random() * 100;
+          const opacity = Math.random() * 0.5 + 0.1;
+          const color = colors[Math.floor(Math.random() * colors.length)];
+
+          particle.style.width = `${size}px`;
+          particle.style.height = `${size}px`;
+          particle.style.left = `${x}%`;
+          particle.style.top = `${y}%`;
+          particle.style.opacity = opacity.toString();
+          particle.style.backgroundColor = color;
+          particle.style.boxShadow = `0 0 ${size * 1.5}px ${color}`;
+
+          particlesRef.current.appendChild(particle);
+
+          const tl = gsap.timeline({ repeat: -1, yoyo: true });
+          tl.to(particle, {
+            x: `${(Math.random() - 0.5) * 250}`,
+            y: `${(Math.random() - 0.5) * 250}`,
+            rotation: 360,
+            duration: 10 + Math.random() * 15,
+            ease: "power1.inOut",
+          });
+        }
+      }
+    });
+
     const container = containerRef.current;
     if (container) {
       container.addEventListener("mousemove", handleMouseMove);
@@ -40,133 +106,91 @@ export default function HeroSection() {
       if (container) {
         container.removeEventListener("mousemove", handleMouseMove);
       }
+      bgCtx.revert();
     };
   }, []);
 
-  if (!isMounted) {
-    return null;
-  }
+  if (!isMounted) return null;
 
   const handleHireMe = () => {
-    window.open("mailto:yeasin.hasan022@gmail.com?subject=Job Opportunity&body=Hi Yeasin, I'd like to discuss a job opportunity with you.", "_blank");
+    window.open(
+      "mailto:yeasin.hasan022@gmail.com?subject=Job Opportunity&body=Hi Yeasin, I'd like to discuss a job opportunity with you.",
+      "_blank"
+    );
   };
 
-  const socialLinks = [
-    { 
-      icon: <Github className="h-5 w-5" />, 
-      url: "https://github.com", 
-      label: "GitHub" 
+  const socialLinks: SocialLink[] = [
+    {
+      icon: <Github className="h-5 w-5" />,
+      url: "https://github.com",
+      label: "GitHub",
     },
-    { 
-      icon: <Linkedin className="h-5 w-5" />, 
-      url: "https://linkedin.com", 
-      label: "LinkedIn" 
+    {
+      icon: <Linkedin className="h-5 w-5" />,
+      url: "https://linkedin.com",
+      label: "LinkedIn",
     },
-    { 
-      icon: <Twitter className="h-5 w-5" />, 
-      url: "https://twitter.com", 
-      label: "Twitter" 
+    {
+      icon: <Twitter className="h-5 w-5" />,
+      url: "https://twitter.com",
+      label: "Twitter",
     },
   ];
 
   return (
-    <section 
-      id="home" 
+    <section
+      id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       ref={containerRef}
     >
-      {/* Background Elements */}
+      {/* Background */}
       <div className="absolute inset-0 -z-10">
-        {/* Main gradient background */}
-        <div className="hero-gradient"></div>
-        
-        {/* Grid pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <svg width="100%" height="100%">
-            <defs>
-              <pattern
-                id="smallGrid"
-                width="40"
-                height="40"
-                patternUnits="userSpaceOnUse"
-              >
-                <path
-                  d="M 40 0 L 0 0 0 40"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="0.5"
-                />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#smallGrid)" />
-          </svg>
+        <div
+          ref={backgroundRef}
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(270deg, #B5FF6D, #61BEFF, #062032, #081a08)",
+            backgroundSize: "400% 400%",
+            backgroundPosition: "0% 0%",
+          }}
+        />
+        <div ref={particlesRef} className="absolute inset-0 overflow-hidden" />
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-full h-full bg-[#B5FF6D]/5 mix-blend-overlay"></div>
+          <div className="absolute top-0 right-0 w-full h-full bg-[#61BEFF]/5 mix-blend-overlay"></div>
         </div>
-        
-        {/* Animated particles */}
-        {Array.from({ length: 30 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-primary/20"
-            style={{
-              width: Math.random() * 10 + 5,
-              height: Math.random() * 10 + 5,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              x: [
-                Math.random() * 100 - 50,
-                Math.random() * 100 - 50,
-                Math.random() * 100 - 50,
-              ],
-              y: [
-                Math.random() * 100 - 50,
-                Math.random() * 100 - 50,
-                Math.random() * 100 - 50,
-              ],
-              scale: [0.8, 1.2, 0.8],
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              duration: Math.random() * 20 + 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
       </div>
 
-      <motion.div 
+      {/* Content */}
+      <motion.div
         className="container mx-auto px-4 z-10 pt-20"
         style={{ opacity, scale, y }}
       >
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-          {/* Profile Image */}
-          <motion.div 
-            className="relative w-64 h-64 md:w-80 md:h-80"
+          {/* Profile */}
+          <motion.div
+            className="relative w-64 h-64 md:w-80 md:h-80 group"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="absolute w-full h-full rounded-full bg-gradient-to-br from-primary to-chart-2 opacity-20 blur-xl"></div>
-            
-            <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-primary/20 shadow-xl">
-            <Image
-              src="/images/dp-1.png"
-              alt="Yeasin Hasan"
-              fill
-              className="object-cover rounded-[30%]"
-              priority
-            />
-              
-              {/* Interactive particles */}
-              {Array.from({ length: 15 }).map((_, i) => (
+            <div className="absolute w-full h-full rounded-full bg-gradient-to-br from-[#B5FF6D] to-[#61BEFF] opacity-20 blur-xl group-hover:opacity-30 transition-all duration-500"></div>
+            <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-[#B5FF6D]/20 shadow-xl group-hover:shadow-2xl transition-all duration-500">
+              <Image
+                src="/images/dp-1.png"
+                alt="Portrait of Yeasin Hasan"
+                fill
+                className="object-cover rounded-[30%] group-hover:scale-105 transition-transform duration-500"
+                priority
+              />
+              {particleSeeds.current.map((seed, i) => (
                 <motion.div
                   key={i}
-                  className="absolute w-3 h-3 rounded-full bg-primary/50"
+                  className="absolute w-2 h-2 rounded-full bg-[#B5FF6D]/50"
                   animate={{
-                    x: mousePosition.x / 10 - 10 + Math.random() * 20,
-                    y: mousePosition.y / 10 - 10 + Math.random() * 20,
+                    x: mousePosition.x / 8 + seed.offsetX,
+                    y: mousePosition.y / 8 + seed.offsetY,
                     opacity: [0.3, 0.8, 0.3],
                   }}
                   transition={{
@@ -175,93 +199,69 @@ export default function HeroSection() {
                     repeatType: "reverse",
                   }}
                   style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
+                    left: `${seed.left}%`,
+                    top: `${seed.top}%`,
                   }}
                 />
               ))}
             </div>
-            
-            {/* Rotating circle around image */}
-            <div className="absolute inset-0 w-full h-full rotating-circle pointer-events-none">
-              <svg viewBox="0 0 100 100" className="w-full h-full">
-                <circle 
-                  cx="50" 
-                  cy="50" 
-                  r="48" 
-                  fill="none" 
-                  stroke="currentColor" 
+            <div className="absolute inset-0 w-full h-full pointer-events-none">
+              <svg viewBox="0 0 100 100" className="w-full h-full animate-spin-slow">
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="48"
+                  fill="none"
+                  stroke="currentColor"
                   strokeWidth="0.5"
-                  strokeDasharray="1,5"
-                  className="text-primary/30"
+                  strokeDasharray="2,5"
+                  className="text-[#B5FF6D]/30"
                 />
-                {/* Dots on the circle */}
-                {[0, 90, 180, 270].map((angle, i) => (
-                  <circle
-                    key={i}
-                    cx={50 + 48 * Math.cos(angle * Math.PI / 180)}
-                    cy={50 + 48 * Math.sin(angle * Math.PI / 180)}
-                    r="1.5"
-                    fill="currentColor"
-                    className="text-primary"
-                  />
-                ))}
               </svg>
             </div>
           </motion.div>
 
-          {/* Text content */}
+          {/* Text */}
           <div className="text-center lg:text-left max-w-2xl">
             <motion.h2
-              className="text-xl md:text-2xl font-medium text-primary mb-2"
+              className="text-xl md:text-2xl font-medium text-[#B5FF6D] mb-2 tracking-wider"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
               Hello There, I'm
             </motion.h2>
-            
             <motion.h1
-              className="text-4xl md:text-6xl font-bold mb-6 text-gradient"
+              className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#B5FF6D] to-[#61BEFF] animate-text-shimmer"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               Yeasin Hasan
             </motion.h1>
-            
             <motion.h3
-              className="text-xl md:text-2xl font-semibold mb-6 text-foreground/80"
+              className="text-xl md:text-2xl font-semibold mb-6 text-white/80"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Software Engineer
+              Full Stack Developer
             </motion.h3>
-            
             <div className="space-y-6">
-              {/* Bio with character-by-character animation */}
               <motion.p
-                className="text-foreground/70 max-w-lg"
+                className="text-white/70 max-w-lg"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.3 }}
               >
-                {Array.from("Passionate software engineer specializing in creating beautiful, interactive web experiences.").map((char, index) => (
-                  <motion.span
-                    key={index}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.03, delay: 0.4 + index * 0.01 }}
-                  >
-                    {char}
-                  </motion.span>
-                ))}
+                Dedicated full-stack developer specializing in MERN stack, Next.js,
+                and MVC architecture. Passionate about crafting intuitive digital
+                experiences that bridge innovation and user-centric design.
               </motion.p>
-              
-              {/* Social links */}
-              <motion.div 
-                className="flex justify-center lg:justify-start space-x-4"
+
+              {/* Social Icons */}
+              <motion.div
+                className="flex justify-center lg:justify-start space-x-4 mb-8"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
@@ -272,45 +272,73 @@ export default function HeroSection() {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-full bg-secondary hover:bg-secondary/80 text-foreground transition-colors social-icon"
-                    whileHover={{ y: -5, scale: 1.1 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     aria-label={link.label}
+                    className="p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300 group"
+                    whileHover={{
+                      y: -5,
+                      scale: 1.1,
+                      rotate: Math.random() * 10 - 5,
+                    }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
                     {link.icon}
                   </motion.a>
                 ))}
               </motion.div>
-              
-              {/* Hire me button */}
+
+              {/* Buttons */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.6 }}
+                className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-6"
               >
-                <Button 
+                <Button
                   onClick={handleHireMe}
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-6 rounded-full text-lg font-medium shadow-lg hover:shadow-xl transition-all"
-                  style={{
-                    animation: "pulse 2s infinite",
-                  }}
+                  className="bg-[#B5FF6D] hover:bg-[#B5FF6D]/90 text-black px-8 py-4 rounded-full text-lg font-medium shadow-lg hover:shadow-xl transition-all group"
                 >
-                  <Mail className="mr-2 h-5 w-5" />
+                  <Mail className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
                   Contact Me
                 </Button>
+                <a
+                  href="/CV-Yeasin Hasan-Software-Engineer_UIU.pdf"
+                  download
+                  className="bg-[#61BEFF] hover:bg-[#61BEFF]/90 text-white px-8 py-4 rounded-full text-lg font-medium shadow-lg hover:shadow-xl transition-all inline-flex items-center group"
+                >
+                  <svg className="mr-2 h-5 w-5 group-hover:animate-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
+                  </svg>
+                  Download CV
+                </a>
               </motion.div>
             </div>
           </div>
         </div>
       </motion.div>
 
-      {/* Scroll indicator */}
-      <motion.div 
-        className="scroll-indicator"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+      {/* Scroll Indicator */}
+      <motion.div
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1, duration: 1 }}
-      />
+      >
+        <div className="w-0.5 h-10 bg-gradient-to-b from-[#B5FF6D] to-[#61BEFF] mb-2 animate-pulse"></div>
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+        >
+          <svg
+            className="w-6 h-6 text-[#B5FF6D]"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
