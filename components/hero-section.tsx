@@ -300,16 +300,22 @@ export default function HeroSection() {
                   <Mail className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
                   Contact Me
                 </Button>
-                <a
-                  href="/CV-Yeasin Hasan-Software-Engineer_UIU.pdf"
-                  download
-                  className="bg-[#61BEFF] hover:bg-[#61BEFF]/90 text-white px-8 py-4 rounded-full text-lg font-medium shadow-lg hover:shadow-xl transition-all inline-flex items-center group"
-                >
-                  <svg className="mr-2 h-5 w-5 group-hover:animate-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
-                  </svg>
-                  Download CV
-                </a>
+                  <Button
+                    asChild
+                    className="bg-[#B5FF6D] hover:bg-[#B5FF6D]/90 text-black px-8 py-4 rounded-full text-lg font-medium shadow-lg hover:shadow-xl transition-all group"
+                  >
+                    <a
+                    
+                      href="/CV-Yeasin Hasan-Software-Engineer_UIU.pdf"
+                      download
+                    >
+                      <svg className="mr-2 h-5 w-5 group-hover:animate-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
+                      </svg>
+                      Download CV
+                    </a>
+                  </Button>
+                
               </motion.div>
             </div>
           </div>
