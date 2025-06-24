@@ -132,8 +132,9 @@ export default function SimpleNavbar() {
                 })}
               </ul>
             </div>
-            <div className="flex-none">
-              <ThemeToggle />
+            <div className="font-semibold px-2 md:px-4 text-xs md:text-xl bg-gradient-to-r from-green-100 to-[#B5FF6D] bg-clip-text text-transparent">
+              {/* <ThemeToggle /> */}
+              .SWE
             </div>
           </div>
         </motion.nav>
