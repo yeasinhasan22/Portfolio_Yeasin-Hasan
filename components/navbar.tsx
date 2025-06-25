@@ -12,14 +12,16 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { name: "HOME", href: "#home", ring: 1 },
-  { name: "MY SELF", href: "#my-self", ring: 2 },
-  { name: "EXPERIENCE", href: "#experience", ring: 3 },
-  { name: "MY WORK", href: "#my-work", ring: 4 },
-  { name: "REVIEWS", href: "#reviews", ring: 5 },
-  { name: "CERTIFICATIONS", href: "#certifications", ring: 6 },
-  { name: "MY YOUTUBE", href: "#youtube", ring: 7 },
-  { name: "CONTACT", href: "#contact", ring: 8 },
+  { name: "WIN", href: "#contact", ring: 0 },
+  { name: "LEGACY", href: "#home", ring: 1 },
+  { name: "TEAM", href: "#my-self", ring: 2 },
+  { name: "LEADER", href: "#experience", ring: 3 },
+  { name: "INNOVATOR", href: "#my-work", ring: 4 },
+  { name: "STRATEGIST", href: "#reviews", ring: 5 },
+  { name: "DISRUPTOR", href: "#certifications", ring: 6 },
+  { name: "BUILDER", href: "#youtube", ring: 7 },
+  { name: "VISIONARY", href: "#contact", ring: 8 },
+  
 ];
 
 export default function Navbar() {
@@ -148,7 +150,7 @@ export default function Navbar() {
                   >
                     <path
                       id={`textPath-${index}`}
-                      d={`M 800 ${textRadius / 2} A ${textRadius / 2} ${textRadius / 2} 0 0 1 ${800 - textRadius / 2} 0`}
+                      d={`M ${800 - textRadius / 2} 0 A ${textRadius / 2} ${textRadius / 2} 0 0 0 800 ${textRadius / 2}`}
                       fill="none"
                     />
                     <text 
