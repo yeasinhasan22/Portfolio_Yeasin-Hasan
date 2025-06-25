@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { color, motion, useScroll, useTransform } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, ExternalLink } from "lucide-react";
@@ -12,46 +12,84 @@ const projects = [
     title: "CLAREx Ltd. Official Site",
     description: "A full-featured Business Solution, BPO & Software Development based platform. It is a one-stop-shop for all your business needs. It was fully Designed and Developed from scratch by me.",
     image: "/projects/clarex.webp",
-    technologies: ["Next.js", "TypeScript", "Stripe", "MongoDB", "Tailwind CSS"],
-    github: "https://github.com",
+    technologies: ["Figma", "Next.js", "TypeScript", "MongoDB", "Tailwind CSS"],
+    // github: "https://github.com",
     live: "https://clarex.co",
     color: "hsl(var(--primary))",
   },
   {
     title: "The Marvel - Be You",
-    description: "The Marvel - Be You is a data-driven platform to bridge the gap between influencers and brands while aiming to systematically assist the influencers to network & receive their deserved recognition & make a difference for the communication industry. (Currently Working on this project as a Full-Stack Developer)",
+    description: `The Marvel – Be You is a data-driven platform to bridge the gap between influencers and brands while aiming to systematically assist the influencers to network, receive their deserved recognition, and make a difference in the communication industry.
+                  🚧 (Currently working on this project as a Full-Stack Developer)`,
     image: "/projects/theMarvel.webp",
-    technologies: ["React", "Firebase", "Redux", "Material UI", "Jest"],
-    github: "",
-    live: "",
+    technologies: ["React", "Supabase", "Redux", "Material UI", "Tailwind CSS"],
+    // github: "",
+    // live: "",
     color: "hsl(var(--chart-2))",
   },
   {
-    title: "AppointTrack - A Health Care System",
-    description: "A comprehensive dashboard for social media analytics with data visualization, scheduling, and performance metrics.",
-    image: "/projects/appointTrack.webp",
-    technologies: ["Vue.js", "D3.js", "Node.js", "Express", "PostgreSQL"],
-    github: "https://github.com",
-    live: "https://www.figma.com/design/CMKlCv98rtLG6WFT8hy5YL/AppointTrack?node-id=0-1&t=s7xQfbRiUxahHpN1-1",
+    title: "SpeakSail - Communication Development Plaform for Elementary School Students",
+    description: `SpeakSail is a web-based English learning platform built using the MERN stack and designed in Figma, aimed at improving listening and speaking skills of elementary 
+              school students in Bangladesh. It addresses the gap in oral communication by combining technology with the national curriculum to create an engaging, effective, 
+              and globally-aligned learning experience.
+              
+              🔐 Username: yeasin@example.com 
+              🔐 Password: StrongPassword123!`,
+
+    image: "/projects/speakSail.webp",
+    technologies: ["React", "Express.js", "Node.js", "MongoDB"],
+    github: "https://github.com/yeasinhasan22/SpeakSail",
+    live: "https://speaksail-client.onrender.com/",
     color: "hsl(var(--chart-3))",
   },
   {
-    title: "AthletiHub - Sports Platform",
-    description: "A mobile-first fitness tracking application with workout plans, progress visualization, and social features.",
-    image: "",
-    technologies: ["React Native", "GraphQL", "Apollo", "MongoDB", "Chart.js"],
-    github: "https://github.com",
-    live: "https://example.com",
+    title: "Webpify - An Image Converter",
+    description: "Webpify is a fast and efficient image converter that transforms images from any format to WebP. Built with Next.js and server-side image processing, it ensures high-speed conversion and optimized output, perfect for web performance and modern development needs.",
+    image: "/projects/webpify.webp",
+    technologies: ["Next.js", "Tailwind CSS", "Framer Motion"],
+    // github: "https://github.com",
+    live: "https://webpify.root9devs.com/",
+    color: "hsl(var(--chart-5))",
+  },
+  {
+    title: "Marvel Of Tomorrow - Influncer Voting Platform",
+    description: "Marvel of Tomorrow was an influencer voting platform built to spotlight and celebrate rising talents. Users were able to discover, support, and vote for their favorite influencers through a transparent and engaging system. The platform successfully fostered community interaction and recognition before the voting period concluded.",
+    image: "/projects/marveloftomorrow.webp",
+    technologies: ["Next.js", "Supabase", "Tailwind CSS", "Framer Motion", "GSAP"],
+    // github: "https://github.com",
+    live: "https://marveloftomorrow.xyz/",
+    color: "hsl(var(--chart-5))",
+  },
+  {
+    title: "AthletiHub - Sports & Esports Platform",
+    description: "AthletiHub is a dynamic platform that combines turf rent sharing with a community-driven sports forum, allowing users to post and engage in all things sports. It also features an integrated Esports community and a robust tournament creation and tracking system, making it a one-stop hub for both physical and digital sports enthusiasts.",
+    image: "/projects/athletiHub.webp",
+    technologies: ["React", "Express.js", "Node.js", "MongoDB"],
+    github: "https://github.com/yeasinhasan22/Athletihub",
+    live: "https://www.figma.com/design/8ult5WJRUZXy0ErrEzoGlD/AthletiHub?node-id=0-1&t=cX1IZgPkDyVzDx3P-1",
     color: "hsl(var(--chart-4))",
   },
   {
     title: "Chef's Notebook",
-    description: "A real estate listing platform with advanced search, virtual tours, and appointment scheduling.",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1973&auto=format&fit=crop",
+    description: "Chef's Notebook is a social recipe-sharing platform where users can post their unique recipes, explore a wide range of categorized dishes shared by others, and engage with the community through likes, comments, shares, and ratings. Users can also follow fellow food enthusiasts and stay connected with their culinary creations.",
+    image: "/projects/chefsNotebook.webp",
     technologies: ["Next.js", "Supabase", "Mapbox", "Tailwind CSS", "Framer Motion"],
-    github: "https://github.com",
-    live: "https://example.com",
+    // github: "https://github.com",
+    live: "https://www.figma.com/design/wgOmUhDaTm8ROsPxvg8o8l/Chef-s-Notebook?node-id=1-5&t=6t5K4jUyyyspYYRB-1",
     color: "hsl(var(--chart-5))",
+  },
+  {
+    title: "AppointTrack - A Health Care App Design",
+    description: `AppointTrack is a modern healthcare management mobile application designed to streamline doctor appointments, emergency services, and patient queue tracking. This user-friendly app enables 
+                  patients to create accounts, sign in securely, and search for doctors by specialty. The platform offers real-time queue tracking, categorized 
+                  doctor listings (e.g., Dentist, Therapist, Surgeon), and essential services like blood requests, emergency helplines, and ambulance bookings. 
+                  With a clean, intuitive UI and options for social logins (Facebook and Google), AppointTrack ensures a smooth and efficient healthcare experience 
+                  for both patients and medical professionals.`,
+    image: "/projects/appointTrack.webp",
+    technologies: ["Vue.js", "D3.js", "Node.js", "Express", "PostgreSQL"],
+    // github: "https://github.com",
+    live: "https://www.figma.com/design/CMKlCv98rtLG6WFT8hy5YL/AppointTrack?node-id=0-1&t=WXicDHlgEXtYgi7l-1",
+    color: "hsl(var(--chart-2))",
   },
 ];
 

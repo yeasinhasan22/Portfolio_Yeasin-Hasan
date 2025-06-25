@@ -11,7 +11,7 @@ const josefinSans = Josefin_Sans({ subsets: ['latin'], weight: ['400', '500', '7
 export const metadata: Metadata = {
   title: 'Yeasin Hasan | Software Engineer',
   description: 'Portfolio of Yeasin Hasan, a passionate Software Engineer specializing in web development and interactive experiences.',
-  icons:'/images/yeasin-logo.png'
+  icons:'/images/yeasin-hasan.png'
 };
 
 export default function RootLayout({
