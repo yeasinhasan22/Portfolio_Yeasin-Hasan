@@ -245,7 +245,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Full Stack Developer
+              🚀 Full-Stack Developer | MERN & Next.js Specialist | Creative Technologist
             </motion.h3>
             <div className="space-y-6">
               <motion.p
@@ -254,9 +254,16 @@ export default function HeroSection() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.3 }}
               >
-                Dedicated full-stack developer specializing in MERN stack, Next.js,
-                and MVC architecture. Passionate about crafting intuitive digital
-                experiences that bridge innovation and user-centric design.
+                
+                 
+
+                I'm a full-stack developer with expertise in the MERN stack, Next.js, and MVC architecture, building seamless, high-performance web apps. Proficient in JavaScript, Java, C++, and Python, I create solutions that are both efficient and intuitive.
+
+                Passionate about clean, user-focused design, I use Figma and Framer to craft responsive, polished interfaces. With a strong grasp of predictive modeling, API integration, and databases like MySQL and MongoDB, I bring clarity and structure to every project.
+
+                I’m proud of all the projects I’ve built — each blending code, creativity, and purpose — and they’re showcased below.
+
+                Let’s build something brilliant.
               </motion.p>
 
               {/* Social Icons */}
