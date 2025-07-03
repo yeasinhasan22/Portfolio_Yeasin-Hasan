@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "./theme-toggle";
-import { Route, FlameKindling } from 'lucide-react';
+import { Goal, Rocket } from 'lucide-react';
 
 interface NavItem {
   name: string;
@@ -59,7 +59,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="fixed top-0 right-0 z-50 h-screen w-screen pointer-events-none">
+    <div className="fixed top-3 right-0 z-50 h-screen w-screen pointer-events-none">
       {/* Menu Toggle Button */}
       <motion.div
         className={`absolute top-6 right-6 z-50 rounded-full w-12 h-12 flex items-center justify-center pointer-events-auto transition-colors duration-300 ${
@@ -78,11 +78,11 @@ export default function Navbar() {
           <AnimatePresence mode="wait">
             {menuOpen ? (
               <motion.div key="close" initial={{ rotate: -180, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 180, opacity: 0 }}>
-                <FlameKindling className="h-6 w-6 stroke-white" />
+                <Rocket className="h-7 w-7 stroke-white" />
               </motion.div>
             ) : (
               <motion.div key="open" initial={{ rotate: 180, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -180, opacity: 0 }}>
-                <Route className="h-6 w-6 stroke-white" />
+                <Goal className="h-7 w-7 stroke-white" />
               </motion.div>
             )}
           </AnimatePresence>
