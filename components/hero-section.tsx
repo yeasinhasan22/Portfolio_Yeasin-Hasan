@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Twitter, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Facebook } from "lucide-react";
 import { useTheme } from "next-themes";
 import gsap from "gsap";
 
@@ -122,18 +122,18 @@ export default function HeroSection() {
   const socialLinks: SocialLink[] = [
     {
       icon: <Github className="h-5 w-5" />,
-      url: "https://github.com",
+      url: "https://github.com/yeasinhasan22/",
       label: "GitHub",
     },
     {
       icon: <Linkedin className="h-5 w-5" />,
-      url: "https://linkedin.com",
+      url: "https://www.linkedin.com/in/yeasin-hasan-513064249/",
       label: "LinkedIn",
     },
     {
-      icon: <Twitter className="h-5 w-5" />,
-      url: "https://twitter.com",
-      label: "Twitter",
+      icon: <Facebook className="h-5 w-5" />,
+      url: "https://www.facebook.com/yeasinhasan22/",
+      label: "Facebook",
     },
   ];
 

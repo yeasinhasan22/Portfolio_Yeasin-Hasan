@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Twitter, Mail, Phone, MapPin, Instagram, Facebook, Globe, Coffee, Code, Palette, Zap, Sparkles, Layers, Database, Smartphone, Brush } from "lucide-react";
+import { Github, Linkedin, Mail, Phone, MapPin, Instagram, Facebook, Globe, Coffee, Code, Palette, Zap, Sparkles, Layers, Database, Smartphone, Brush } from "lucide-react";
 
 export default function ContactSection() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
@@ -19,7 +19,7 @@ export default function ContactSection() {
       icon: <Phone className="h-5 w-5" />,
       label: "Phone",
       value: "Prefer mail",
-      href: "tel:+15551234567",
+      href: "",
     },
     {
       icon: <MapPin className="h-5 w-5" />,
@@ -43,14 +43,14 @@ export default function ContactSection() {
       color: "#0077B5"
     },
     { 
-      icon: <Twitter className="h-5 w-5" />, 
-      url: "https://twitter.com", 
-      label: "Twitter",
+      icon: <Facebook className="h-5 w-5" />, 
+      url: "https://www.facebook.com/yeasinhasan22/", 
+      label: "Facebook",
       color: "#1DA1F2"
     },
     { 
       icon: <Instagram className="h-5 w-5" />, 
-      url: "https://instagram.com", 
+      url: "https://www.instagram.com/shihabb_h/", 
       label: "Instagram",
       color: "#E4405F"
     },
@@ -62,8 +62,8 @@ export default function ContactSection() {
     },
     { 
       icon: <Globe className="h-5 w-5" />, 
-      url: "https://root9devs.com", 
-      label: "Root9Devs",
+      url: "https://maps.app.goo.gl/P1qSCxu7GpKAWg2m8", 
+      label: "Visit",
       color: "#10B981"
     },
   ];
