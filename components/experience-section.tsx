@@ -24,14 +24,14 @@ interface Education {
 const experiences: Experience[] = [
   {
     title: "Software Developer",
-    company: "CLARExTech",
+    company: "CLAREx Limited",
     period: "2024 - Present",
     description: "Designed & Developed the official site from scratch of CLAREx Ltd. using Next.js, Tailwind CSS, Redux & MongoDB. Also working on the Project : The Marvel - Be You,  which is the biggest Influencer & Brand management system in Bangladesh - Using MERN Stack.",
     technologies: ["MERN Stack", "Next.js", "Node.js", "Vite", "MongoDB", "Express", "PostgreSQL", "Redux"],
   },
   {
     title: "Full Stack Developer",
-    company: "SHELL GLAZING SOLUTION",
+    company: "Shell Glazing Solution",
     period: "2022 - 2024 (Part time)",
     description: "Developed and maintained multiple client projects using React and Express. Collaborated with design teams to implement responsive UI components and integrated third-party APIs.",
     technologies: ["React", "Express", "MySQL", "Redux"],
