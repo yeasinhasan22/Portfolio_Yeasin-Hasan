@@ -51,6 +51,12 @@ const education: Education[] = [
     period: "2024",
     description: "Hands-on training in full-stack development with JavaScript and Next.js, focusing on scalable web apps, data structures, and real-world projects.",
   },
+  {
+    degree: "Secondary School Certificate (SSC)",
+    institution: "Chandpur Hasan Ali Government High School",
+    period: "2012-2016",
+    description: "I completed my Secondary School Certificate (SSC) from Chandpur Hasan Ali Government High School, one of the most renowned and reputable institutions under the Cumilla Education Board.",
+  },
 ];
 
 export default function ExperienceSection() {

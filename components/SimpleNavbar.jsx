@@ -35,11 +35,11 @@ export default function SimpleNavbar() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 80);
-      
+
       // Update active section based on scroll position
       const sections = navigationItems.map(item => item.href.substring(1));
       const currentPosition = window.scrollY + 100;
-      
+
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = document.getElementById(sections[i]);
         if (section && section.offsetTop <= currentPosition) {
@@ -48,7 +48,7 @@ export default function SimpleNavbar() {
         }
       }
     };
-    
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -72,7 +72,7 @@ export default function SimpleNavbar() {
   const scrollToSection = (sectionId) => {
     document.querySelector(sectionId)?.scrollIntoView({ behavior: "smooth" });
     if (menuOpen) setMenuOpen(false);
-    
+
     // Update the active section
     setActiveSection(sectionId.substring(1));
   };
@@ -80,159 +80,157 @@ export default function SimpleNavbar() {
 
   return (
     <>
-    <div className="left-0 right-0 flex justify-center">  
-      <motion.header
-        className={`fixed top-6 transform z-40 transition-all duration-500 ease-in-out ${
-          isScrolled ? "w-[90%] md:w-[50%]" : "w-[80%] md:w-[90%]"
-        }`}
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9 }}
-      >
-        <motion.nav
-          className={`rounded-full justify-center border backdrop-blur-md transition-all duration-500 ${
-            isScrolled 
-              ? "bg-background/70 shadow-lg backdrop-blur-md" 
-              : "bg-background/30"
-          }`}
+      <div className="left-0 right-0 flex justify-center">
+        <motion.header
+          className={`fixed top-6 transform z-40 transition-all duration-500 ease-in-out ${isScrolled ? "w-[90%] md:w-[50%]" : "w-[80%] md:w-[90%]"
+            }`}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
         >
-          <div className="flex items-center justify-between py-4 px-6">
-            <p className="font-extrabold px-2 md:px-4 text-base md:text-2xl bg-gradient-to-r from-green-100 to-[#B5FF6D] bg-clip-text text-transparent">
-                .yeasin
-            </p>
-
-            {/* Centered Navigation */}
-            <div className="flex-grow flex justify-center">
-              <ul className="flex items-center space-x-1 md:space-x-3 no-scrollbar">
-                {navigationItems.map((item) => {
-                  const isActive = activeSection === item.href.substring(1);
-                  
-                  return (
-                    <li key={item.name}>
-                      <motion.button
-                        onClick={() => scrollToSection(item.href)}
-                        className="relative px-1 md:px-3 py-2 text-[7px] md:text-base font-medium rounded-lg hover:bg-background/50 dark:hover:bg-slate-800/60 transition-colors duration-300 flex items-center"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        {isActive && (
-                          <motion.span
-                            className="absolute left-0 ml-1 w-2 h-2 rounded-full bg-green-500"
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            layoutId="activeIndicator"
-                          />
-                        )}
-                        <span className={`${isActive ? "ml-3" : ""}`}>
-                          {item.name}
-                        </span>
-                      </motion.button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-            <div className="font-semibold px-2 md:px-4 text-xs md:text-xl bg-gradient-to-r from-green-100 to-[#B5FF6D] bg-clip-text text-transparent">
-              {/* <ThemeToggle /> */}
-              .SWE
-            </div>
-          </div>
-        </motion.nav>
-      </motion.header>
-      
-      {/* Concentric Circles Menu */}
-      <AnimatePresence>
-        {isMenuVisible && (
-          <motion.div
-            className="fixed top-12 right-12 z-50 pointer-events-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          <motion.nav
+            className={`rounded-full justify-center border backdrop-blur-md transition-all duration-500 ${isScrolled
+                ? "bg-background/70 shadow-lg backdrop-blur-md"
+                : "bg-background/30"
+              }`}
           >
-            <svg width="1000" height="1000" viewBox="0 0 800 800" className="overflow-visible">
-              <defs>
-                <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#8B0000" />
-                  <stop offset="100%" stopColor="#FF3030" />
-                </linearGradient>
-                <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#1e3a8a" />
-                  <stop offset="100%" stopColor="#3b82f6" />
-                </linearGradient>
-              </defs>
+            <div className="flex items-center justify-between py-4 px-6">
+              <p className="font-extrabold px-2 md:px-4 text-base md:text-2xl bg-gradient-to-r from-green-100 to-[#B5FF6D] bg-clip-text text-transparent">
+                .yeasin
+              </p>
 
-              {/* Central Circle */}
-              <circle
-                cx="800"
-                cy="0"
-                r="40"
-                fill={isDarkMode ? "url(#blueGradient)" : "url(#redGradient)"}
-              />
+              {/* Centered Navigation */}
+              <div className="flex-grow flex justify-center">
+                <ul className="flex items-center space-x-1 md:space-x-3 no-scrollbar">
+                  {navigationItems.map((item) => {
+                    const isActive = activeSection === item.href.substring(1);
 
-              {[...Array(8)].map((_, i) => (
-                <motion.circle
-                  key={i}
+                    return (
+                      <li key={item.name}>
+                        <motion.button
+                          onClick={() => scrollToSection(item.href)}
+                          className="relative px-1 md:px-3 py-2 text-[7px] md:text-base font-medium rounded-lg hover:bg-background/50 dark:hover:bg-slate-800/60 transition-colors duration-300 flex items-center"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          {isActive && (
+                            <motion.span
+                              className="absolute left-0 ml-1 w-2 h-2 rounded-full bg-green-500"
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              layoutId="activeIndicator"
+                            />
+                          )}
+                          <span className={`${isActive ? "ml-3" : ""}`}>
+                            {item.name}
+                          </span>
+                        </motion.button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+              <div className="font-semibold px-2 md:px-4 text-xs md:text-xl bg-gradient-to-r from-green-100 to-[#B5FF6D] bg-clip-text text-transparent">
+                {/* <ThemeToggle /> */}
+                .SWE
+              </div>
+            </div>
+          </motion.nav>
+        </motion.header>
+
+        {/* Concentric Circles Menu */}
+        <AnimatePresence>
+          {isMenuVisible && (
+            <motion.div
+              className="fixed top-12 right-12 z-50 pointer-events-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <svg width="1000" height="1000" viewBox="0 0 800 800" className="overflow-visible">
+                <defs>
+                  <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#8B0000" />
+                    <stop offset="100%" stopColor="#FF3030" />
+                  </linearGradient>
+                  <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#1e3a8a" />
+                    <stop offset="100%" stopColor="#3b82f6" />
+                  </linearGradient>
+                </defs>
+
+                {/* Central Circle */}
+                <circle
                   cx="800"
                   cy="0"
-                  r={(800 - i * 80) / 2}
-                  fill="none"
-                  stroke={isDarkMode ? "url(#blueGradient)" : "url(#redGradient)"}
-                  strokeWidth="80"
-                  strokeOpacity={0.9 - i * 0.1}
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  exit={{ scale: 0, opacity: 0 }}
-                  transition={{ delay: 0.1 * i, duration: 0.5 }}
+                  r="40"
+                  fill={isDarkMode ? "url(#blueGradient)" : "url(#redGradient)"}
                 />
-              ))}
 
-              {navItems.map((item, index) => {
-                const textRadius = 800 - (item.ring - 0.5) * 80;
-                const rotation = 45 + (45 * index) / (navItems.length - 1) - 90;
-                const angle = 45 + (45 * index) / (navItems.length - 1);
-                const position = {
-                  transform: `rotate(${angle - 90}deg)`,
-                  transformOrigin: '800px 0px'
-                };
-                
-                return (
-                  <motion.g
-                    key={item.name}
-                    style={position}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ delay: 0.1 * index + 0.3 }}
-                  >
-                    <path
-                      id={`textPath-${index}`}
-                      d={`M 800 ${textRadius / 2} A ${textRadius / 2} ${textRadius / 2} 0 0 1 ${800 - textRadius / 2} 0`}
-                      fill="none"
-                    />
-                    <text 
-                      className={`text-lg font-bold cursor-pointer ${isDarkMode ? 'fill-blue-200' : 'fill-yellow-300'}`}
-                      transform={`rotate(${-rotation} 800 0)`}
+                {[...Array(8)].map((_, i) => (
+                  <motion.circle
+                    key={i}
+                    cx="800"
+                    cy="0"
+                    r={(800 - i * 80) / 2}
+                    fill="none"
+                    stroke={isDarkMode ? "url(#blueGradient)" : "url(#redGradient)"}
+                    strokeWidth="80"
+                    strokeOpacity={0.9 - i * 0.1}
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0, opacity: 0 }}
+                    transition={{ delay: 0.1 * i, duration: 0.5 }}
+                  />
+                ))}
+
+                {navItems.map((item, index) => {
+                  const textRadius = 800 - (item.ring - 0.5) * 80;
+                  const rotation = 45 + (45 * index) / (navItems.length - 1) - 90;
+                  const angle = 45 + (45 * index) / (navItems.length - 1);
+                  const position = {
+                    transform: `rotate(${angle - 90}deg)`,
+                    transformOrigin: '800px 0px'
+                  };
+
+                  return (
+                    <motion.g
+                      key={item.name}
+                      style={position}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ delay: 0.1 * index + 0.3 }}
                     >
-                      <textPath
-                        href={`#textPath-${index}`}
-                        startOffset="50%"
-                        textAnchor="middle"
-                        onClick={() => scrollToSection(item.href)}
-                        className="pointer-events-auto"
+                      <path
+                        id={`textPath-${index}`}
+                        d={`M 800 ${textRadius / 2} A ${textRadius / 2} ${textRadius / 2} 0 0 1 ${800 - textRadius / 2} 0`}
+                        fill="none"
+                      />
+                      <text
+                        className={`text-lg font-bold cursor-pointer ${isDarkMode ? 'fill-blue-200' : 'fill-yellow-300'}`}
+                        transform={`rotate(${-rotation} 800 0)`}
                       >
-                        {item.name}
-                      </textPath>
-                    </text>
-                  </motion.g>
-                );
-              })}
-            </svg>
-            
+                        <textPath
+                          href={`#textPath-${index}`}
+                          startOffset="50%"
+                          textAnchor="middle"
+                          onClick={() => scrollToSection(item.href)}
+                          className="pointer-events-auto"
+                        >
+                          {item.name}
+                        </textPath>
+                      </text>
+                    </motion.g>
+                  );
+                })}
+              </svg>
 
-            <div className="fixed inset-0 bg-transparent z-40" onClick={toggleMenu} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+              <div className="fixed inset-0 bg-transparent z-40" onClick={toggleMenu} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </>
   );
