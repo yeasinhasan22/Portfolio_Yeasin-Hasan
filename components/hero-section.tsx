@@ -164,13 +164,13 @@ export default function HeroSection() {
 
       {/* Content */}
       <motion.div
-        className="container mx-auto px-4 z-10 pt-20"
+        className="container mx-auto px-4 z-10 pt-32"
         style={{ opacity, scale, y }}
       >
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           {/* Profile */}
           <motion.div
-            className="relative w-64 h-64 md:w-80 md:h-80 group"
+            className="relative w-64 h-64 md:w-96 md:h-96 group"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -178,10 +178,10 @@ export default function HeroSection() {
             <div className="absolute w-full h-full rounded-full bg-gradient-to-br from-[#B5FF6D] to-[#61BEFF] opacity-20 blur-xl group-hover:opacity-30 transition-all duration-500"></div>
             <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-[#B5FF6D]/20 shadow-xl group-hover:shadow-2xl transition-all duration-500">
               <Image
-                src="/images/dp-1.png"
+                src="/images/dp-1.jpeg"
                 alt="Portrait of Yeasin Hasan"
                 fill
-                className="object-cover rounded-[30%] group-hover:scale-105 transition-transform duration-500"
+                className="object-cover rounded-[30%] group-hover:scale-110 transition-transform duration-500"
                 priority
               />
               {particleSeeds.current.map((seed, i) => (
@@ -240,12 +240,12 @@ export default function HeroSection() {
               Yeasin Hasan
             </motion.h1>
             <motion.h3
-              className="text-xl md:text-2xl font-semibold mb-6 text-white/80"
+              className="text-lg md:text-xl font-semibold mb-6 text-white/80"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              🚀 Full-Stack Developer | MERN & Next.js Specialist | Creative Technologist
+              Full-Stack Developer | MERN & Next.js Specialist | Creative Technologist
             </motion.h3>
             <div className="space-y-6">
               <motion.p
@@ -254,16 +254,11 @@ export default function HeroSection() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.3 }}
               >
-                
-                 
-
-                I'm a full-stack developer with expertise in the MERN stack, Next.js, and MVC architecture, building seamless, high-performance web apps. Proficient in JavaScript, Java, C++, and Python, I create solutions that are both efficient and intuitive.
-
-                Passionate about clean, user-focused design, I use Figma and Framer to craft responsive, polished interfaces. With a strong grasp of predictive modeling, API integration, and databases like MySQL and MongoDB, I bring clarity and structure to every project.
-
-                I’m proud of all the projects I’ve built — each blending code, creativity, and purpose — and they’re showcased below.
-
-                Let’s build something brilliant.
+                <p>A passionate Full-Stack Developer who loves turning ideas into smooth, meaningful digital experiences. I specialize in Next.js, MERN stack, and modern UI/UX, building fast, scalable, and user-focused applications.</p>
+                <br />
+                <p>With hands-on experience in real-world projects, from complex web platforms to fully redesigned mobile app prototypes, I bridge the gap between creativity and clean engineering. I enjoy crafting interfaces that feel good to use — and systems that perform even better.</p>
+                <br />
+                <p>I build with purpose, design with clarity, and deliver with impact.</p>
               </motion.p>
 
               {/* Social Icons */}
@@ -307,22 +302,22 @@ export default function HeroSection() {
                   <Mail className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
                   Contact Me
                 </Button>
-                  <Button
-                    asChild
-                    className="bg-[#B5FF6D] hover:bg-[#B5FF6D]/90 text-black px-8 py-4 rounded-full text-lg font-medium shadow-lg hover:shadow-xl transition-all group"
+                <Button
+                  asChild
+                  className="bg-[#B5FF6D] hover:bg-[#B5FF6D]/90 text-black px-8 py-4 rounded-full text-lg font-medium shadow-lg hover:shadow-xl transition-all group"
+                >
+                  <a
+
+                    href="/CV-Yeasin Hasan-Software-Engineer_UIU.pdf"
+                    download
                   >
-                    <a
-                    
-                      href="/CV-Yeasin Hasan-Software-Engineer_UIU.pdf"
-                      download
-                    >
-                      <svg className="mr-2 h-5 w-5 group-hover:animate-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
-                      </svg>
-                      Download CV
-                    </a>
-                  </Button>
-                
+                    <svg className="mr-2 h-5 w-5 group-hover:animate-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
+                    </svg>
+                    Download CV
+                  </a>
+                </Button>
+
               </motion.div>
             </div>
           </div>
@@ -331,7 +326,7 @@ export default function HeroSection() {
 
       {/* Scroll Indicator */}
       <motion.div
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
+        className="hidden sm:absolute sm:bottom-10 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:flex sm:flex-col sm:items-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1, duration: 1 }}

@@ -74,12 +74,11 @@ export default function Navbar() {
   };
 
   return (
-    <div className="fixed top-3 right-0 z-50 h-screen w-screen pointer-events-none">
+    <div className="fixed top-16 sm:top-3 right-[-6px] sm:right-0 z-50 h-screen w-screen pointer-events-none">
       {/* Menu Toggle Button */}
       <motion.div
-        className={`absolute top-6 right-6 z-50 rounded-full w-12 h-12 flex items-center justify-center pointer-events-auto transition-colors duration-300 ${
-          isScrolled ? "bg-background/80 shadow-md" : "bg-red-500"
-        } ${isDarkMode ? "dark:bg-blue-600" : ""}`}
+        className={`absolute top-6 right-6 z-50 rounded-full w-12 h-12 flex items-center justify-center pointer-events-auto transition-colors duration-300 ${isScrolled ? "bg-background/80 shadow-md" : "bg-red-500"
+          } ${isDarkMode ? "dark:bg-blue-600" : ""}`}
         whileHover={{ scale: 1.1 }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -161,8 +160,8 @@ export default function Navbar() {
                         ? "#60a5fa"
                         : "#ffcc00"
                       : isDarkMode
-                      ? "url(#blueGradient)"
-                      : "url(#redGradient)"
+                        ? "url(#blueGradient)"
+                        : "url(#redGradient)"
                   }
                   strokeWidth={getStrokeWidth()}
                   strokeOpacity={0.9 - ringIndex * 0.1}
@@ -195,17 +194,15 @@ export default function Navbar() {
                   >
                     <path
                       id={`textPath-${index}`}
-                      d={`M ${800 - textRadius / 2} 0 A ${
-                        textRadius / 2
-                      } ${textRadius / 2} 0 0 0 800 ${textRadius / 2}`}
+                      d={`M ${800 - textRadius / 2} 0 A ${textRadius / 2
+                        } ${textRadius / 2} 0 0 0 800 ${textRadius / 2}`}
                       fill="none"
                     />
                     <text
-                      className={`cursor-pointer font-bold ${
-                        isDarkMode
-                          ? "fill-blue-200"
-                          : "fill-yellow-300"
-                      } text-[16px] sm:text-sm md:text-base lg:text-lg`}
+                      className={`cursor-pointer font-bold ${isDarkMode
+                        ? "fill-blue-200"
+                        : "fill-yellow-300"
+                        } text-[16px] sm:text-sm md:text-base lg:text-lg`}
                       transform={`rotate(${-rotation} 800 0)`}
                       onMouseEnter={() => setHoveredRing(item.ring)}
                       onMouseLeave={() => setHoveredRing(null)}
