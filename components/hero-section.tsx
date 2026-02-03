@@ -53,7 +53,7 @@ export default function HeroSection() {
       if (backgroundRef.current) {
         gsap.to(backgroundRef.current, {
           backgroundPosition: "200% 0%",
-          duration: 30,
+          duration: 15,
           repeat: -1,
           yoyo: true,
           ease: "none",
@@ -62,7 +62,7 @@ export default function HeroSection() {
 
       if (particlesRef.current) {
         particlesRef.current.innerHTML = "";
-        const numParticles = 50;
+        const numParticles = 25;
         const colors = ["#B5FF6D", "#61BEFF", "#ffffff"];
 
         for (let i = 0; i < numParticles; i++) {
@@ -90,7 +90,7 @@ export default function HeroSection() {
             x: `${(Math.random() - 0.5) * 250}`,
             y: `${(Math.random() - 0.5) * 250}`,
             rotation: 360,
-            duration: 10 + Math.random() * 15,
+            duration: 5 + Math.random() * 7,
             ease: "power1.inOut",
           });
         }
@@ -173,12 +173,12 @@ export default function HeroSection() {
             className="relative w-64 h-64 md:w-96 md:h-96 group"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
           >
             <div className="absolute w-full h-full rounded-full bg-gradient-to-br from-[#B5FF6D] to-[#61BEFF] opacity-20 blur-xl group-hover:opacity-30 transition-all duration-500"></div>
             <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-[#B5FF6D]/20 shadow-xl group-hover:shadow-2xl transition-all duration-500">
               <Image
-                src="/images/dp-1.jpeg"
+                src="/images/portfolio-convo.jpeg"
                 alt="Portrait of Yeasin Hasan"
                 fill
                 className="object-cover rounded-[30%] group-hover:scale-110 transition-transform duration-500"
@@ -227,7 +227,7 @@ export default function HeroSection() {
               className="text-xl md:text-2xl font-medium text-[#B5FF6D] mb-2 tracking-wider"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.3 }}
             >
               Hello There, I'm
             </motion.h2>
@@ -235,7 +235,7 @@ export default function HeroSection() {
               className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#B5FF6D] to-[#61BEFF] animate-text-shimmer"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.3, delay: 0.05 }}
             >
               Yeasin Hasan
             </motion.h1>
@@ -243,7 +243,7 @@ export default function HeroSection() {
               className="text-lg md:text-xl font-semibold mb-6 text-white/80"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
             >
               Full-Stack Developer | MERN & Next.js Specialist | Creative Technologist
             </motion.h3>
@@ -252,7 +252,7 @@ export default function HeroSection() {
                 className="text-white/70 max-w-lg"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 0.3 }}
+                transition={{ duration: 0.5, delay: 0.15 }}
               >
                 <p>A passionate Full-Stack Developer who loves turning ideas into smooth, meaningful digital experiences. I specialize in Next.js, MERN stack, and modern UI/UX, building fast, scalable, and user-focused applications.</p>
                 <br />
@@ -266,7 +266,7 @@ export default function HeroSection() {
                 className="flex justify-center lg:justify-start space-x-4 mb-8"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
+                transition={{ duration: 0.3, delay: 0.2 }}
               >
                 {socialLinks.map((link, index) => (
                   <motion.a
@@ -292,7 +292,7 @@ export default function HeroSection() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
+                transition={{ duration: 0.3, delay: 0.25 }}
                 className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-6"
               >
                 <Button
@@ -329,7 +329,7 @@ export default function HeroSection() {
         className="hidden sm:absolute sm:bottom-10 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:flex sm:flex-col sm:items-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 1 }}
+        transition={{ delay: 0.4, duration: 0.5 }}
       >
         <div className="w-0.5 h-10 bg-gradient-to-b from-[#B5FF6D] to-[#61BEFF] mb-2 animate-pulse"></div>
         <motion.div

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description:
     'Explore my personal portfolio — a showcase of modern web development projects, skills, and experiences.',
   icons: '/images/yeasin-hasan.png',
-  metadataBase: new URL('https://yeasinhasan.vercel.app'), 
+  metadataBase: new URL('https://yeasinhasan.vercel.app'),
 
   openGraph: {
     title: 'Yeasin Hasan | Software Engineer Portfolio',
@@ -49,7 +49,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={josefinSans.className}>
-        <CustomCursor/>
+        <CustomCursor />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

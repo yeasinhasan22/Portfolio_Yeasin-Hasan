@@ -7,7 +7,7 @@ export default function CustomCursor(): JSX.Element {
     const follower = document.querySelector<HTMLDivElement>(".follower");
     const cursor = document.querySelector<HTMLDivElement>(".cursor");
 
-    const acceleration = 0.15;
+    const acceleration = 0.25;
     let x = window.innerWidth / 2;
     let y = window.innerHeight / 2;
     let currX = x;
@@ -62,8 +62,8 @@ export default function CustomCursor(): JSX.Element {
 
         /* Dark mode overrides */
         .dark {
-          --follower-color: #0ea5e9; /* Sky-blue ring */
-          --cursor-color: #38bdf8;   /* Lighter sky-blue dot */
+          --follower-color: #b5ff6d;
+          --cursor-color: #b5ff6d; 
         }
 
         .follower {

@@ -49,13 +49,16 @@
 
   .light {
     /* Light Mode (Warm, Dark Orange Theme) */
-    --background: 34 90% 95%; /* Light warm beige */
-    --foreground: 24 45% 10%; /* Dark brown for contrast */
+    --background: 34 90% 95%;
+    /* Light warm beige */
+    --foreground: 24 45% 10%;
+    /* Dark brown for contrast */
     --card: 34 80% 92%;
     --card-foreground: 24 45% 15%;
     --popover: 34 80% 90%;
     --popover-foreground: 24 45% 20%;
-    --primary: 24 90% 50%; /* Dark orange */
+    --primary: 24 90% 50%;
+    /* Dark orange */
     --primary-foreground: 34 80% 95%;
     --secondary: 34 75% 80%;
     --secondary-foreground: 24 45% 10%;
@@ -67,7 +70,8 @@
     --destructive-foreground: 24 45% 10%;
     --border: 34 75% 75%;
     --input: 34 75% 75%;
-    --ring: 24 90% 45%; /* Stronger dark orange */
+    --ring: 24 90% 45%;
+    /* Stronger dark orange */
     --chart-1: 24 90% 50%;
     --chart-2: 34 80% 60%;
     --chart-3: 14 85% 55%;
@@ -82,6 +86,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -91,9 +96,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -103,33 +110,45 @@
   0% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-20px);
   }
+
   100% {
     transform: translateY(0px);
   }
+}
+
+/* Optimized animation timing */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }
 
 @keyframes spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.8;
     transform: scale(1.05);
   }
 }
+
 .circular-menu {
   position: fixed;
   right: 5%;
@@ -184,6 +203,9 @@
 .project-card {
   perspective: 1000px;
   transition: all 0.5s;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .project-card-inner {
@@ -218,15 +240,17 @@
 }
 
 .skill-item {
-  transition: all 0.3s;
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .skill-item:hover {
-  transform: translateY(-10px);
+  transform: translateY(-10px) translateZ(0);
 }
 
 .rotating-circle {
-  animation: spin 60s linear infinite;
+  animation: spin 30s linear infinite;
 }
 
 .section-divider {
@@ -287,7 +311,7 @@
   margin-left: -3px;
   background-color: hsl(var(--primary));
   border-radius: 50%;
-  animation: scroll 2s infinite;
+  animation: scroll 1.2s infinite;
 }
 
 @keyframes scroll {
@@ -295,6 +319,7 @@
     transform: translateY(0);
     opacity: 1;
   }
+
   100% {
     transform: translateY(25px);
     opacity: 0;
@@ -344,10 +369,9 @@
 }
 
 .skill-card {
-  background: linear-gradient(135deg, 
-    hsla(var(--primary), 0.1) 0%, 
-    hsla(var(--chart-2), 0.1) 100%
-  );
+  background: linear-gradient(135deg,
+      hsla(var(--primary), 0.1) 0%,
+      hsla(var(--chart-2), 0.1) 100%);
   backdrop-filter: blur(10px);
   border: 1px solid transparent;
   background: var(--skills-card-bg);
@@ -355,18 +379,16 @@
 }
 
 .skill-card:hover {
-  background: linear-gradient(135deg, 
-    hsla(var(--primary), 0.2) 0%, 
-    hsla(var(--chart-2), 0.2) 100%
-  );
+  background: linear-gradient(135deg,
+      hsla(var(--primary), 0.2) 0%,
+      hsla(var(--chart-2), 0.2) 100%);
   border-color: hsla(var(--primary), 0.4);
 }
 
 .skill-icon {
-  background: linear-gradient(135deg, 
-    hsl(var(--primary)) 0%, 
-    hsl(var(--chart-2)) 100%
-  );
+  background: linear-gradient(135deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--chart-2)) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
