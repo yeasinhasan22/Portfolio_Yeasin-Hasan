@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { color, motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github, ExternalLink } from "lucide-react";
@@ -18,6 +18,24 @@ const projects = [
     color: "hsl(var(--primary))",
   },
   {
+    title: "Presswayy - AI Solution for Social Media",
+    description: `AI Facebook & Instagram Page Automation
+**Overview**
+ -  Worked on Presswayy, a live production web application.
+ -  Developed frontend features based on real business requirements.
+ -  Implemented backend APIs and business logic.
+ -  Handled deployment and maintenance on a live server environment.
+ -  Managed environment configuration and production updates.
+ -  Participated in: Production rollout, Platform preparation for reviews, External integrations (e.g., platform approval processes).
+ -  Focused on rapid delivery while maintaining production stability.`,
+    image: "/projects/presswayy.jpeg",
+    technologies: ["Next.js", "Node.js", "PostgreSQL", "Business Logic"],
+    // github: "https://github.com",
+    live: "https://presswayy.com/",
+    color: "hsl(var(--primary))",
+  },
+
+  {
     title: "The Marvel - Be You",
     description: `The Marvel – Be You is a data-driven platform to bridge the gap between influencers and brands while aiming to systematically assist the influencers to network, receive their deserved recognition, and make a difference in the communication industry.
                   🚧 (Currently working on this project as a Full-Stack Developer)`,
@@ -26,6 +44,15 @@ const projects = [
     // github: "",
     // live: "",
     color: "hsl(var(--chart-2))",
+  },
+  {
+    title: "Marvel Of Tomorrow - Influncer Voting Platform",
+    description: "Marvel of Tomorrow was an influencer voting platform built to spotlight and celebrate rising talents. Users were able to discover, support, and vote for their favorite influencers through a transparent and engaging system. The platform successfully fostered community interaction and recognition before the voting period concluded.",
+    image: "/projects/marveloftomorrow.webp",
+    technologies: ["Next.js", "Supabase", "Tailwind CSS", "Framer Motion", "GSAP"],
+    // github: "https://github.com",
+    live: "https://marveloftomorrow.xyz/",
+    color: "hsl(var(--chart-5))",
   },
   {
     title: "SpeakSail - Communication Development Plaform for Elementary School Students",
@@ -49,15 +76,6 @@ const projects = [
     technologies: ["Next.js", "Tailwind CSS", "Framer Motion"],
     // github: "https://github.com",
     live: "https://webpify.root9devs.com/",
-    color: "hsl(var(--chart-5))",
-  },
-  {
-    title: "Marvel Of Tomorrow - Influncer Voting Platform",
-    description: "Marvel of Tomorrow was an influencer voting platform built to spotlight and celebrate rising talents. Users were able to discover, support, and vote for their favorite influencers through a transparent and engaging system. The platform successfully fostered community interaction and recognition before the voting period concluded.",
-    image: "/projects/marveloftomorrow.webp",
-    technologies: ["Next.js", "Supabase", "Tailwind CSS", "Framer Motion", "GSAP"],
-    // github: "https://github.com",
-    live: "https://marveloftomorrow.xyz/",
     color: "hsl(var(--chart-5))",
   },
   {
@@ -126,8 +144,8 @@ export default function ProjectsSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.3 }}
+          viewport={{ once: true, margin: "-50px" }}
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Projects</h2>
@@ -142,27 +160,27 @@ export default function ProjectsSection() {
         <div className="space-y-32">
           {projects.map((project, index) => {
             const isEven = index % 2 === 0;
-            
+
             return (
               <motion.div
                 key={project.title}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.1 }}
-                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.4, delay: 0.05 }}
+                viewport={{ once: true, margin: "-50px" }}
                 className="relative"
               >
                 {/* Project number */}
-                <div 
+                <div
                   className="absolute -top-16 opacity-10 text-[120px] font-bold z-0"
                   style={{ color: project.color, left: isEven ? '0' : 'auto', right: isEven ? 'auto' : '0' }}
                 >
                   {index + 1}
                 </div>
-                
+
                 <div className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 items-center`}>
                   {/* Project Image */}
-                  <motion.div 
+                  <motion.div
                     className="w-full md:w-1/2 project-card h-[300px] md:h-[400px]"
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.3 }}
@@ -221,25 +239,25 @@ export default function ProjectsSection() {
                       </div>
                     </div>
                   </motion.div>
-                  
+
                   {/* Project Details */}
                   <div className="w-full md:w-1/2 space-y-4">
                     <motion.div
                       initial={{ opacity: 0, x: isEven ? -30 : 30 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: 0.2 }}
+                      transition={{ duration: 0.3, delay: 0.1 }}
                       viewport={{ once: true }}
                     >
                       <h3 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: project.color }}>
                         {project.title}
                       </h3>
                       <p className="text-foreground/70 mb-6">{project.description}</p>
-                      
+
                       <div className="flex flex-wrap gap-2 mb-6">
                         {project.technologies.map((tech) => (
-                          <Badge 
-                            key={tech} 
-                            variant="outline" 
+                          <Badge
+                            key={tech}
+                            variant="outline"
                             className="text-foreground/80"
                             style={{ borderColor: `${project.color}40` }}
                           >
@@ -247,7 +265,7 @@ export default function ProjectsSection() {
                           </Badge>
                         ))}
                       </div>
-                      
+
                       <div className="flex space-x-4">
                         <Button variant="outline" asChild>
                           <a href={project.github} target="_blank" rel="noopener noreferrer">
@@ -265,11 +283,11 @@ export default function ProjectsSection() {
                     </motion.div>
                   </div>
                 </div>
-                
+
                 {/* Decorative elements */}
-                <div 
+                <div
                   className="absolute -z-10 w-64 h-64 rounded-full blur-3xl opacity-10"
-                  style={{ 
+                  style={{
                     backgroundColor: project.color,
                     left: isEven ? '10%' : 'auto',
                     right: isEven ? 'auto' : '10%',

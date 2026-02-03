@@ -62,14 +62,14 @@ export default function Navbar() {
 
   const getStrokeWidth = () => {
     if (typeof window === "undefined") return 80;
-    if (window.innerWidth < 640) return 45; // thicker on mobile
+    if (window.innerWidth < 640) return 45;
     if (window.innerWidth < 1024) return 60;
     return 80;
   };
 
   const getRingGap = () => {
     if (typeof window === "undefined") return 80;
-    if (window.innerWidth < 640) return 80; // smaller gap on mobile
+    if (window.innerWidth < 640) return 80;
     return 80;
   };
 
@@ -78,7 +78,7 @@ export default function Navbar() {
       {/* Menu Toggle Button */}
       <motion.div
         className={`absolute top-6 right-6 z-50 rounded-full w-12 h-12 flex items-center justify-center pointer-events-auto transition-colors duration-300 ${isScrolled ? "bg-background/80 shadow-md" : "bg-red-500"
-          } ${isDarkMode ? "dark:bg-blue-600" : ""}`}
+          } ${isDarkMode ? "dark:bg-[#B5FF6D]" : ""}`}
         whileHover={{ scale: 1.1 }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -97,7 +97,7 @@ export default function Navbar() {
                 animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: 180, opacity: 0 }}
               >
-                <Rocket className="h-7 w-7 stroke-white" />
+                <Rocket className="h-7 w-7 stroke-black" />
               </motion.div>
             ) : (
               <motion.div
@@ -106,7 +106,7 @@ export default function Navbar() {
                 animate={{ rotate: 0, opacity: 1 }}
                 exit={{ rotate: -180, opacity: 0 }}
               >
-                <Goal className="h-7 w-7 stroke-white" />
+                <Goal className="h-7 w-7 stroke-black" />
               </motion.div>
             )}
           </AnimatePresence>
@@ -131,9 +131,9 @@ export default function Navbar() {
                   <stop offset="0%" stopColor="#8B0000" />
                   <stop offset="100%" stopColor="#FF3030" />
                 </linearGradient>
-                <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#1e3a8a" />
-                  <stop offset="100%" stopColor="#3b82f6" />
+                <linearGradient id="greenGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#6fdc3a" />
+                  <stop offset="100%" stopColor="#b5ff6d" />
                 </linearGradient>
               </defs>
 
@@ -142,7 +142,7 @@ export default function Navbar() {
                 cx="800"
                 cy="0"
                 r="40"
-                fill={isDarkMode ? "url(#blueGradient)" : "url(#redGradient)"}
+                fill={isDarkMode ? "url(#greenGradient)" : "url(#redGradient)"}
               />
 
               {/* Rings */}
@@ -160,7 +160,7 @@ export default function Navbar() {
                         ? "#60a5fa"
                         : "#ffcc00"
                       : isDarkMode
-                        ? "url(#blueGradient)"
+                        ? "url(#greenGradient)"
                         : "url(#redGradient)"
                   }
                   strokeWidth={getStrokeWidth()}
@@ -171,7 +171,7 @@ export default function Navbar() {
                     opacity: 1,
                   }}
                   exit={{ scale: 0, opacity: 0 }}
-                  transition={{ delay: 0.1 * ringIndex, duration: 0.5 }}
+                  transition={{ delay: 0.05 * ringIndex, duration: 0.3 }}
                   onMouseEnter={() => setHoveredRing(ringIndex)}
                   onMouseLeave={() => setHoveredRing(null)}
                 />
@@ -190,7 +190,7 @@ export default function Navbar() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ delay: 0.1 * item.ring + 0.3 }}
+                    transition={{ delay: 0.05 * item.ring + 0.15 }}
                   >
                     <path
                       id={`textPath-${index}`}
@@ -199,10 +199,7 @@ export default function Navbar() {
                       fill="none"
                     />
                     <text
-                      className={`cursor-pointer font-bold ${isDarkMode
-                        ? "fill-blue-200"
-                        : "fill-yellow-300"
-                        } text-[16px] sm:text-sm md:text-base lg:text-lg`}
+                      className="cursor-pointer font-bold fill-black text-[16px] sm:text-sm md:text-base lg:text-lg"
                       transform={`rotate(${-rotation} 800 0)`}
                       onMouseEnter={() => setHoveredRing(item.ring)}
                       onMouseLeave={() => setHoveredRing(null)}

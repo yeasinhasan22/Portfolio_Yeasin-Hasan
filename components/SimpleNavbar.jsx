@@ -86,12 +86,12 @@ export default function SimpleNavbar() {
             }`}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9 }}
+          transition={{ duration: 0.4 }}
         >
           <motion.nav
             className={`rounded-full justify-center border backdrop-blur-md transition-all duration-500 ${isScrolled
-                ? "bg-background/70 shadow-lg backdrop-blur-md"
-                : "bg-background/30"
+              ? "bg-background/70 shadow-lg backdrop-blur-md"
+              : "bg-background/30"
               }`}
           >
             <div className="flex items-center justify-between py-4 px-6">
@@ -180,7 +180,7 @@ export default function SimpleNavbar() {
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 0, opacity: 0 }}
-                    transition={{ delay: 0.1 * i, duration: 0.5 }}
+                    transition={{ delay: 0.05 * i, duration: 0.3 }}
                   />
                 ))}
 
@@ -200,7 +200,7 @@ export default function SimpleNavbar() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ delay: 0.1 * index + 0.3 }}
+                      transition={{ delay: 0.05 * index + 0.15 }}
                     >
                       <path
                         id={`textPath-${index}`}
