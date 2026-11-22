@@ -1,61 +1,45 @@
 "use client";
 
-import * as React from "react";
-import { Moon, Sun } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
+import { motion } from "framer-motion";
+import { Sun, Moon } from "lucide-react";
 
-export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
+export default function ThemeToggle() {
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  // Only run this effect on client-side
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
+  // next-themes only knows the real theme after hydration.
+  useEffect(() => setMounted(true), []);
 
-  // Show a placeholder during SSR and initial hydration
-  if (!mounted) {
-    return (
-      <button
-        className="relative flex h-8 w-16 items-center rounded-full shadow-lg p-1 transition-all duration-300 ease-in-out bg-slate-200"
-        aria-label="Loading theme toggle"
-      >
-        <span className="absolute flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-lg border transition-all" />
-      </button>
-    );
-  }
-
-  const isDark = theme === "dark";
+  const isDark = resolvedTheme === "dark";
 
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className={`relative flex h-8 w-16 items-center rounded-full shadow-lg p-1 transition-all duration-300 ease-in-out ${
-        isDark ? "bg-slate-800" : "bg-slate-200"
-      }`}
-      aria-label="Toggle theme"
+      // Stays generic until mounted — the server can't know the resolved theme,
+      // and a theme-specific label here would mismatch on hydration.
+      aria-label={
+        mounted
+          ? isDark
+            ? "Switch to light mode"
+            : "Switch to dark mode"
+          : "Toggle colour theme"
+      }
+      className="relative grid h-8 w-8 place-items-center overflow-hidden rounded-full border border-ink/12 text-ink-soft transition-colors duration-300 hover:border-ink hover:text-ink"
     >
-      {/* Track */}
-      <span className="sr-only">{isDark ? "Switch to light mode" : "Switch to dark mode"}</span>
-      
-      {/* Thumb/Handle */}
-      <span 
-        className={`absolute flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-lg border transition-all duration-500 ease-in-out ${
-          isDark ? "translate-x-8" : "translate-x-0"
-        }`}
-      >
-        {/* Icons with crossfade effect */}
-        <Sun 
-          className={`absolute h-4 w-4 text-amber-500 transition-all duration-300 ${
-            isDark ? "opacity-0 scale-50 rotate-90" : "opacity-100 scale-100 rotate-0"
-          }`} 
-        />
-        <Moon 
-          className={`absolute h-4 w-4 text-slate-800 transition-all duration-300 ${
-            isDark ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-50 -rotate-90"
-          }`} 
-        />
-      </span>
+      {/* Render nothing theme-specific until mounted to avoid a mismatch. */}
+      {mounted && (
+        <motion.span
+          key={isDark ? "moon" : "sun"}
+          initial={{ y: 14, opacity: 0, rotate: -40 }}
+          animate={{ y: 0, opacity: 1, rotate: 0 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="grid place-items-center"
+        >
+          {isDark ? <Moon className="h-3.5 w-3.5" /> : <Sun className="h-3.5 w-3.5" />}
+        </motion.span>
+      )}
     </button>
   );
 }

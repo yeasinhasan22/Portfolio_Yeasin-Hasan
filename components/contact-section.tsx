@@ -2,560 +2,219 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, Phone, MapPin, Instagram, Facebook, Globe, Coffee, Code, Palette, Zap, Sparkles, Layers, Database, Smartphone, Brush } from "lucide-react";
+import { ArrowUpRight, Copy, Check, MapPin, Mail } from "lucide-react";
+import { profile, socials, contactIntents } from "@/lib/content";
+import {
+  Reveal,
+  Marquee,
+  StaggerGroup,
+  StaggerItem,
+  toneColor,
+} from "@/components/primitives";
 
 export default function ContactSection() {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [hoveredSkill, setHoveredSkill] = useState<number | null>(null);
+  const [copied, setCopied] = useState<string | null>(null);
 
-  const contactInfo = [
-    {
-      icon: <Mail className="h-5 w-5" />,
-      label: "Email",
-      value: "yeasin.hasan022@gmail.com",
-      href: "mailto:yeasin.hasan022@gmail.com",
-    },
-    {
-      icon: <Phone className="h-5 w-5" />,
-      label: "Phone",
-      value: "Prefer mail",
-      href: "",
-    },
-    {
-      icon: <MapPin className="h-5 w-5" />,
-      label: "Location",
-      value: "Dhaka, Bangladesh",
-      href: "https://maps.google.com/?q=Dhaka,+Bangladesh",
-    },
-  ];
-
-  const socialLinks = [
-    {
-      icon: <Github className="h-5 w-5" />,
-      url: "https://github.com/yeasinhasan22/",
-      label: "GitHub",
-      color: "#333"
-    },
-    {
-      icon: <Linkedin className="h-5 w-5" />,
-      url: "https://www.linkedin.com/in/yeasin-hasan-513064249/",
-      label: "LinkedIn",
-      color: "#0077B5"
-    },
-    {
-      icon: <Facebook className="h-5 w-5" />,
-      url: "https://www.facebook.com/yeasinhasan22/",
-      label: "Facebook",
-      color: "#1DA1F2"
-    },
-    {
-      icon: <Instagram className="h-5 w-5" />,
-      url: "https://www.instagram.com/shihabb_h/",
-      label: "Instagram",
-      color: "#E4405F"
-    },
-    {
-      icon: <Facebook className="h-5 w-5" />,
-      url: "https://facebook.com",
-      label: "Facebook",
-      color: "#1877F2"
-    },
-    {
-      icon: <Globe className="h-5 w-5" />,
-      url: "https://maps.app.goo.gl/P1qSCxu7GpKAWg2m8",
-      label: "Visit",
-      color: "#10B981"
-    },
-  ];
-
-  const quickActions = [
-    {
-      icon: <Coffee className="h-6 w-6" />,
-      title: "Let's Chat",
-      description: "Schedule a coffee chat",
-      action: () => window.open("mailto:yeasin.hasan022@gmail.com?subject=Coffee Chat Request", "_blank"),
-      gradient: "from-amber-500 to-orange-500"
-    },
-    {
-      icon: <Code className="h-6 w-6" />,
-      title: "Project Inquiry",
-      description: "Discuss your next project",
-      action: () => window.open("mailto:yeasin.hasan022@gmail.com?subject=Project Inquiry", "_blank"),
-      gradient: "from-blue-500 to-purple-500"
-    },
-    {
-      icon: <Palette className="h-6 w-6" />,
-      title: "Design Collab",
-      description: "Creative collaboration",
-      action: () => window.open("mailto:yeasin.hasan022@gmail.com?subject=Design Collaboration", "_blank"),
-      gradient: "from-pink-500 to-rose-500"
-    },
-    {
-      icon: <Zap className="h-6 w-6" />,
-      title: "Quick Question",
-      description: "Ask me anything",
-      action: () => window.open("mailto:yeasin.hasan022@gmail.com?subject=Quick Question", "_blank"),
-      gradient: "from-green-500 to-teal-500"
-    }
-  ];
-
-  const skills = [
-    {
-      name: "React",
-      icon: <Code className="h-5 w-5" />,
-      description: "Building dynamic UIs",
-      gradient: "from-blue-400 to-blue-600",
-      particles: 8,
-      expertise: "expert"
-    },
-    {
-      name: "Next.js",
-      icon: <Layers className="h-5 w-5" />,
-      description: "Full-stack frameworks",
-      gradient: "from-gray-400 to-gray-600",
-      particles: 7,
-      expertise: "expert"
-    },
-    {
-      name: "TypeScript",
-      icon: <Database className="h-5 w-5" />,
-      description: "Type-safe development",
-      gradient: "from-indigo-400 to-indigo-600",
-      particles: 6,
-      expertise: "advanced"
-    },
-    {
-      name: "Node.js",
-      icon: <Smartphone className="h-5 w-5" />,
-      description: "Backend development",
-      gradient: "from-green-400 to-green-600",
-      particles: 6,
-      expertise: "advanced"
-    },
-    {
-      name: "UI/UX Design",
-      icon: <Brush className="h-5 w-5" />,
-      description: "User-centered design",
-      gradient: "from-purple-400 to-pink-500",
-      particles: 8,
-      expertise: "expert"
-    }
-  ];
-
-  type ExpertiseLevel = "expert" | "advanced" | string;
-
-  const getExpertiseColor = (expertise: ExpertiseLevel): string => {
-    switch (expertise) {
-      case "expert": return "text-emerald-400 bg-emerald-500/10";
-      case "advanced": return "text-blue-400 bg-blue-500/10";
-      default: return "text-amber-400 bg-amber-500/10";
+  const copy = async (value: string, key: string) => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(key);
+      setTimeout(() => setCopied(null), 1800);
+    } catch {
+      /* clipboard blocked — the mailto links below still work */
     }
   };
 
+  const mailto = (subject: string) =>
+    `mailto:${profile.email}?subject=${encodeURIComponent(subject)}`;
+
   return (
-    <section id="contact" className="py-20 relative overflow-hidden bg-gray-900 text-white">
-      {/* Background elements */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-900/95 to-gray-900"></div>
-        <div className="absolute left-0 bottom-0 w-full h-1/2 opacity-5">
-          <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <pattern id="waves" width="20" height="20" patternUnits="userSpaceOnUse">
-              <path d="M0,10 C5,5 10,15 20,10 L20,20 L0,20 Z" fill="currentColor" />
-            </pattern>
-            <rect width="100%" height="100%" fill="url(#waves)" />
-          </svg>
-        </div>
-        {/* Floating particles */}
-        <div className="absolute inset-0">
-          {[...Array(20)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-blue-400/30 rounded-full"
-              animate={{
-                x: [0, 100, 0],
-                y: [0, -100, 0],
-                opacity: [0.3, 0.8, 0.3]
-              }}
-              transition={{
-                duration: Math.random() * 10 + 10,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            Get In Touch
+    <section id="contact" className="relative px-[3vw] py-20 md:py-28">
+      <div className="mx-auto w-full max-w-[1180px]">
+        <Reveal className="mb-10">
+          <span className="font-hand text-2xl text-ink-soft">let&apos;s talk</span>
+          <h2 className="mt-1 font-display text-[clamp(2rem,6vw,3.6rem)] font-bold uppercase leading-none tracking-tight text-ink">
+            Get in touch
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto"></div>
-          <p className="mt-6 text-gray-300 max-w-2xl mx-auto">
-            Have a project in mind or want to discuss a potential collaboration?
-            Feel free to reach out and I'll get back to you as soon as possible.
-          </p>
-        </motion.div>
+        </Reveal>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Interactive Contact Cards */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-[#B5FF6D] to-[#61BEFF] bg-clip-text text-transparent">
-              Let's Connect
-            </h3>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-6 lg:grid-cols-12">
+          {/* ---- big CTA ---- */}
+          <Reveal className="sm:col-span-6 lg:col-span-7">
+            <div className="bento flex h-full flex-col justify-between gap-6 p-6 md:p-8">
+              <span className="bento-label">Start here</span>
 
-            {/* Quick Action Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {quickActions.map((action, index) => (
-                <motion.div
-                  key={index}
-                  className="group cursor-pointer"
-                  onClick={action.action}
-                  whileHover={{ scale: 1.02, y: -3 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              <h3 className="font-display text-[clamp(1.7rem,3.6vw,2.6rem)] font-bold leading-[1.08] tracking-tight text-ink text-balance">
+                Got something you want built?{" "}
+                <span
+                  className="marker"
+                  style={{ ["--marker-color" as string]: toneColor("lime") }}
                 >
-                  <div className="relative p-5 bg-gray-800/50 border border-gray-700/50 rounded-xl overflow-hidden transition-all duration-200 hover:border-[#B5FF6D]/50 hover:bg-gray-800/70 backdrop-blur-sm">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#B5FF6D]/5 to-[#61BEFF]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
-                    <div className="relative z-10">
-                      <div className="inline-flex p-3 rounded-lg bg-[#B5FF6D]/10 border border-[#B5FF6D]/20 text-[#B5FF6D] mb-3 group-hover:bg-[#B5FF6D]/20 group-hover:border-[#B5FF6D]/30 transition-all duration-200">
-                        {action.icon}
-                      </div>
-                      <h4 className="font-semibold text-white group-hover:text-[#B5FF6D] transition-colors duration-200">
-                        {action.title}
-                      </h4>
-                      <p className="text-sm text-gray-400 mt-1 group-hover:text-gray-300 transition-colors duration-200">
-                        {action.description}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Contact Information */}
-            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-6 mt-8 backdrop-blur-sm">
-              <h4 className="text-xl font-bold mb-4">Direct Contact</h4>
-              <div className="space-y-4">
-                {contactInfo.map((info, index) => (
-                  <motion.a
-                    key={index}
-                    href={info.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center p-3 rounded-lg hover:bg-[#B5FF6D]/10 transition-colors group"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  >
-                    <div className="bg-[#B5FF6D]/10 p-2 rounded-full text-[#B5FF6D] mr-3 group-hover:bg-[#B5FF6D]/20 transition-colors">
-                      {info.icon}
-                    </div>
-                    <div>
-                      <h5 className="font-medium text-white text-sm">{info.label}</h5>
-                      <p className="text-gray-400 text-sm">{info.value}</p>
-                    </div>
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Social Links & Skills */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="space-y-8"
-          >
-            {/* Social Media Grid */}
-            <div>
-              <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-[#B5FF6D] to-[#61BEFF] bg-clip-text text-transparent">
-                Connect With Me
+                  Let&apos;s make it real.
+                </span>
               </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {socialLinks.slice(0, 4).map((link, index) => (
-                  <motion.a
-                    key={index}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative p-4 bg-gray-800/50 border border-gray-700/50 rounded-xl hover:border-[#B5FF6D]/50 hover:bg-gray-800/70 transition-all duration-200 text-center backdrop-blur-sm"
-                    whileHover={{ y: -3, scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                  >
-                    <div className="flex flex-col items-center space-y-2">
-                      <div className="p-2.5 rounded-lg bg-[#B5FF6D]/10 border border-[#B5FF6D]/20 text-[#B5FF6D] group-hover:bg-[#B5FF6D]/20 group-hover:border-[#B5FF6D]/30 transition-all duration-200">
-                        {link.icon}
-                      </div>
-                      <span className="text-xs font-medium text-gray-400 group-hover:text-[#B5FF6D] transition-colors duration-200">
-                        {link.label}
+
+              <p className="max-w-[48ch] text-[15px] leading-relaxed text-ink-soft text-pretty">
+                I reply to everything — a role, a project, a half-formed idea
+                you want a second opinion on. Pick whichever fits and the email
+                writes its own subject line.
+              </p>
+
+              <StaggerGroup className="grid grid-cols-1 gap-2 sm:grid-cols-2" stagger={0.06}>
+                {contactIntents.map((intent) => (
+                  <StaggerItem key={intent.subject}>
+                    <a
+                      href={mailto(intent.subject)}
+                      className="group/i flex h-full items-center justify-between gap-3 rounded-xl border border-ink/10 p-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/35"
+                      style={{
+                        background: `linear-gradient(135deg, ${toneColor(
+                          intent.tone,
+                          0.16
+                        )}, transparent 70%)`,
+                      }}
+                    >
+                      <span>
+                        <span className="block text-sm font-semibold text-ink">
+                          {intent.label}
+                        </span>
+                        <span className="mt-0.5 block text-xs text-ink-faint">
+                          {intent.detail}
+                        </span>
                       </span>
-                    </div>
-                  </motion.a>
+                      <ArrowUpRight className="h-4 w-4 shrink-0 text-ink-faint transition-all duration-300 group-hover/i:translate-x-0.5 group-hover/i:-translate-y-0.5 group-hover/i:text-ink" />
+                    </a>
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerGroup>
             </div>
+          </Reveal>
 
-            {/* Creative Skills Showcase */}
-            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-6 backdrop-blur-sm">
-              <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-[#B5FF6D]" />
-                Skills & Expertise
-              </h3>
-              <div className="space-y-4">
-                {skills.map((skill, index) => (
-                  <motion.div
-                    key={index}
-                    className="relative group cursor-pointer"
-                    onHoverStart={() => setHoveredSkill(index)}
-                    onHoverEnd={() => setHoveredSkill(null)}
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  >
-                    <div className="relative overflow-hidden p-4 bg-gray-900/50 rounded-lg border border-gray-700/30 group-hover:border-[#B5FF6D]/30 transition-all duration-200">
-                      {/* Simplified glow effect */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#B5FF6D]/0 to-[#61BEFF]/0 group-hover:from-[#B5FF6D]/5 group-hover:to-[#61BEFF]/5 transition-all duration-200 rounded-lg"></div>
+          {/* ---- direct details ---- */}
+          <Reveal delay={0.08} className="sm:col-span-3 lg:col-span-5">
+            <div className="bento flex h-full flex-col gap-3 p-6">
+              <span className="bento-label">Direct</span>
 
-                      <div className="relative z-10 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="p-2 rounded-lg bg-[#B5FF6D]/10 border border-[#B5FF6D]/20 text-[#B5FF6D] group-hover:bg-[#B5FF6D]/20 group-hover:scale-110 transition-all duration-200">
-                            {skill.icon}
-                          </div>
-                          <div>
-                            <h4 className="font-semibold text-white group-hover:text-[#B5FF6D] transition-colors duration-200">
-                              {skill.name}
-                            </h4>
-                            <p className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors duration-200">
-                              {skill.description}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                          {/* Expertise badge */}
-                          <span className="px-2 py-1 text-xs font-medium rounded-full bg-[#B5FF6D]/10 text-[#B5FF6D] border border-[#B5FF6D]/20 transition-all duration-200">
-                            {skill.expertise}
-                          </span>
-
-                          {/* Visual proficiency indicator */}
-                          <div className="flex gap-1">
-                            {[...Array(5)].map((_, i) => (
-                              <motion.div
-                                key={i}
-                                className={`w-1.5 h-6 rounded-full ${i < skill.particles - 3 ? 'bg-gradient-to-t from-[#B5FF6D] to-[#61BEFF]' : 'bg-gray-700'}`}
-                                initial={{ scaleY: 0 }}
-                                animate={hoveredSkill === index ? { scaleY: 1 } : { scaleY: 0.5 }}
-                                transition={{ delay: i * 0.1, duration: 0.3 }}
-                                style={{ transformOrigin: 'bottom' }}
-                              />
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Availability Status */}
-            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-6 backdrop-blur-sm">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-lg font-bold mb-2">Current Status</h3>
-                  <p className="text-gray-400 text-sm">
-                    Available for new projects and collaborations
-                  </p>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-green-400">Available</span>
-                </div>
-              </div>
-              <div className="mt-4 pt-4 border-t border-gray-700">
-                <p className="text-gray-500 text-sm">
-                  Response time: Usually within 24 hours
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Modern Footer */}
-        <motion.div
-          className="mt-24"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-        >
-          {/* Divider Line */}
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-[#B5FF6D]/30 to-transparent mb-12" />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            {/* Brand Column */}
-            <div className="space-y-4">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              {/* email */}
+              <button
+                onClick={() => copy(profile.email, "email")}
+                className="group/d flex items-center justify-between gap-3 rounded-xl border border-ink/10 p-3.5 text-left transition-colors duration-300 hover:border-ink/35"
               >
-                <h3 className="text-2xl font-bold bg-gradient-to-r from-[#B5FF6D] to-[#61BEFF] bg-clip-text text-transparent">
-                  Yeasin Hasan
-                </h3>
-              </motion.div>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Full-Stack Developer crafting exceptional digital experiences with modern technologies and clean code.
-              </p>
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-[#B5FF6D] rounded-full animate-pulse" />
-                <span className="text-[#B5FF6D] text-sm font-medium">Available for projects</span>
-              </div>
-            </div>
+                <span className="min-w-0">
+                  <span className="block font-mono text-[9px] uppercase tracking-[0.16em] text-ink-faint">
+                    Email
+                  </span>
+                  <span className="mt-0.5 block truncate text-sm text-ink">
+                    {profile.email}
+                  </span>
+                </span>
+                {copied === "email" ? (
+                  <Check className="h-4 w-4 shrink-0 text-ink" />
+                ) : (
+                  <Copy className="h-4 w-4 shrink-0 text-ink-faint group-hover/d:text-ink" />
+                )}
+              </button>
 
-            {/* Quick Links */}
-            <div className="space-y-4">
-              <h4 className="text-white font-semibold text-lg mb-4">Quick Links</h4>
-              <nav className="space-y-2">
-                {[
-                  { name: 'Home', href: '#home' },
-                  { name: 'Experience', href: '#experience' },
-                  { name: 'Skills', href: '#skills' },
-                  { name: 'Projects', href: '#projects' }
-                ].map((link, index) => (
-                  <motion.a
-                    key={index}
-                    href={link.href}
-                    className="block text-gray-400 hover:text-[#B5FF6D] transition-colors duration-200 text-sm group"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span className="w-0 h-px bg-[#B5FF6D] group-hover:w-4 transition-all duration-200" />
-                      {link.name}
-                    </span>
-                  </motion.a>
-                ))}
-              </nav>
-            </div>
+              {/* location */}
+              <a
+                href="https://maps.app.goo.gl/P1qSCxu7GpKAWg2m8"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/d flex items-center justify-between gap-3 rounded-xl border border-ink/10 p-3.5 transition-colors duration-300 hover:border-ink/35"
+              >
+                <span>
+                  <span className="block font-mono text-[9px] uppercase tracking-[0.16em] text-ink-faint">
+                    Based in
+                  </span>
+                  <span className="mt-0.5 flex items-center gap-1.5 text-sm text-ink">
+                    <MapPin className="h-3 w-3" />
+                    {profile.location}
+                  </span>
+                </span>
+                <ArrowUpRight className="h-4 w-4 shrink-0 text-ink-faint group-hover/d:text-ink" />
+              </a>
 
-            {/* Connect */}
-            <div className="space-y-4">
-              <h4 className="text-white font-semibold text-lg mb-4">Connect</h4>
-              <div className="space-y-3">
-                <a
-                  href="mailto:yeasin.hasan022@gmail.com"
-                  className="flex items-center gap-3 text-gray-400 hover:text-[#B5FF6D] transition-colors duration-200 text-sm group"
-                >
-                  <Mail className="h-4 w-4 text-[#B5FF6D]/60 group-hover:text-[#B5FF6D]" />
-                  <span>yeasin.hasan022@gmail.com</span>
-                </a>
-                <div className="flex items-center gap-3 text-gray-400 text-sm">
-                  <MapPin className="h-4 w-4 text-[#B5FF6D]/60" />
-                  <span>Dhaka, Bangladesh</span>
-                </div>
+              {/* availability */}
+              <div className="rounded-xl border border-ink/10 p-3.5">
+                <span className="block font-mono text-[9px] uppercase tracking-[0.16em] text-ink-faint">
+                  Status
+                </span>
+                <span className="mt-0.5 flex items-center gap-2 text-sm text-ink">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-lime" />
+                  </span>
+                  {profile.availableLabel}
+                </span>
               </div>
 
-              {/* Social Icons */}
-              <div className="flex items-center gap-3 pt-2">
-                {[
-                  { icon: Github, url: "https://github.com/yeasinhasan22/", label: "GitHub" },
-                  { icon: Linkedin, url: "https://www.linkedin.com/in/yeasin-hasan-513064249/", label: "LinkedIn" },
-                  { icon: Facebook, url: "https://www.facebook.com/yeasinhasan22/", label: "Facebook" },
-                  { icon: Instagram, url: "https://www.instagram.com/shihabb_h/", label: "Instagram" }
-                ].map((social, index) => (
+              <a
+                href={mailto("Hello Yeasin")}
+                className="mt-auto flex w-full items-center justify-center gap-2 rounded-full bg-ink px-5 py-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-paper transition-transform duration-300 ease-spring hover:scale-[1.02]"
+              >
+                <Mail className="h-3.5 w-3.5" />
+                Send an email
+              </a>
+            </div>
+          </Reveal>
+
+          {/* ---- socials ---- */}
+          <Reveal delay={0.12} className="sm:col-span-3 lg:col-span-12">
+            <div className="bento p-6">
+              <span className="bento-label">Find me elsewhere</span>
+              <div className="mt-4 grid grid-cols-2 gap-2 md:grid-cols-4">
+                {socials.map((s) => (
                   <motion.a
-                    key={index}
-                    href={social.url}
+                    key={s.label}
+                    href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg bg-gray-800/50 border border-gray-700/50 hover:border-[#B5FF6D]/50 hover:bg-[#B5FF6D]/10 transition-all duration-200 group"
-                    whileHover={{ y: -3 }}
-                    whileTap={{ scale: 0.95 }}
-                    aria-label={social.label}
+                    whileHover={{ y: -4 }}
+                    transition={{ type: "spring", stiffness: 340, damping: 20 }}
+                    className="group/s flex items-center justify-between rounded-xl border border-ink/10 px-4 py-3 transition-colors duration-300 hover:border-ink hover:bg-ink hover:text-paper"
                   >
-                    <social.icon className="h-4 w-4 text-gray-400 group-hover:text-[#B5FF6D]" />
+                    <span className="font-mono text-[11px] uppercase tracking-[0.12em]">
+                      {s.label}
+                    </span>
+                    <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/s:translate-x-0.5 group-hover/s:-translate-y-0.5" />
                   </motion.a>
                 ))}
               </div>
             </div>
-
-            {/* Newsletter or CTA */}
-            <div className="space-y-4">
-              <h4 className="text-white font-semibold text-lg mb-4">Stay Updated</h4>
-              <p className="text-gray-400 text-sm">
-                Get notified about new projects and blog posts.
-              </p>
-              <motion.button
-                onClick={() => window.open("mailto:yeasin.hasan022@gmail.com?subject=Subscribe to Updates", "_blank")}
-                className="w-full px-4 py-2.5 bg-[#B5FF6D]/10 border border-[#B5FF6D]/30 hover:bg-[#B5FF6D]/20 hover:border-[#B5FF6D]/50 rounded-lg text-[#B5FF6D] font-medium text-sm transition-all duration-200"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Subscribe via Email
-              </motion.button>
-
-              {/* Download CV */}
-              <motion.a
-                href="/CV-Yeasin Hasan-Software-Engineer_UIU.pdf"
-                download
-                className="w-full px-4 py-2.5 bg-gray-800/50 border border-gray-700/50 hover:border-[#B5FF6D]/50 hover:bg-gray-800 rounded-lg text-gray-300 hover:text-[#B5FF6D] font-medium text-sm transition-all duration-200 flex items-center justify-center gap-2"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
-                </svg>
-                Download CV
-              </motion.a>
-            </div>
-          </div>
-
-          {/* Bottom Bar */}
-          <div className="pt-8 border-t border-gray-800/50">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <p className="text-gray-500 text-sm">
-                © {new Date().getFullYear()} Yeasin Hasan. Crafted with passion & precision.
-              </p>
-
-              <div className="flex items-center gap-6 text-sm text-gray-500">
-                <motion.span
-                  className="flex items-center gap-2"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <Code className="h-4 w-4 text-[#B5FF6D]/60" />
-                  Built with Next.js
-                </motion.span>
-                <motion.span
-                  className="flex items-center gap-2"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <Zap className="h-4 w-4 text-[#B5FF6D]/60" />
-                  Optimized for speed
-                </motion.span>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+          </Reveal>
+        </div>
       </div>
+
+      {/* ---------- footer ---------- */}
+      <footer className="mx-auto mt-16 w-full max-w-[1180px]">
+        <div className="cut-line mb-6" />
+
+        <Marquee speed={44} className="mb-8">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <span
+              key={i}
+              className="flex items-center gap-6 pr-6 font-display text-4xl font-bold uppercase tracking-tight text-ink/12 md:text-6xl"
+            >
+              Let&apos;s build something
+              <span className="text-lime">✦</span>
+            </span>
+          ))}
+        </Marquee>
+
+        <div className="flex flex-col items-center justify-between gap-4 pb-10 sm:flex-row">
+          <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">
+            © {new Date().getFullYear()} {profile.name}
+          </p>
+          <p className="font-hand text-lg text-ink-soft">
+            built from scratch, by hand ✌️
+          </p>
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint transition-colors hover:text-ink"
+          >
+            Back to top ↑
+          </button>
+        </div>
+      </footer>
     </section>
   );
 }

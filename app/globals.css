@@ -2,393 +2,307 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 @layer base {
   :root {
-    /* Dark Mode as Default */
-    --background: 222 47% 11%;
-    --foreground: 213 31% 91%;
-    --card: 222 47% 13%;
-    --card-foreground: 213 31% 91%;
-    --popover: 222 47% 11%;
-    --popover-foreground: 213 31% 91%;
-    --primary: 199 89% 48%;
-    --primary-foreground: 213 31% 91%;
-    --secondary: 222 47% 20%;
-    --secondary-foreground: 213 31% 91%;
-    --muted: 222 47% 20%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 222 47% 20%;
-    --accent-foreground: 213 31% 91%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 222 47% 20%;
-    --input: 222 47% 20%;
-    --ring: 224 76.3% 48%;
-    --chart-1: 199 89% 48%;
-    --chart-2: 217 91% 60%;
-    --chart-3: 190 90% 50%;
-    --chart-4: 224 76.3% 48%;
-    --chart-5: 262 83% 58%;
-    --skills-card-bg: linear-gradient(to right, #7a746e, #3f6194);
-    --radius: 0.5rem;
+    /* ---------- paper / ink ---------- */
+    --paper: 42 38% 96%;
+    --paper-deep: 40 26% 91%;
+    --paper-raised: 44 50% 99%;
+    --ink: 30 6% 9%;
+    --ink-soft: 30 5% 34%;
+    --ink-faint: 30 5% 56%;
+    --rule: 214 42% 84%;
+
+    /* ---------- highlighter accents ---------- */
+    --acc-lime: 72 85% 62%;
+    --acc-sky: 205 95% 70%;
+    --acc-pink: 340 95% 72%;
+    --acc-amber: 42 98% 62%;
+    --acc-violet: 252 85% 74%;
+
+    /* ---------- shadcn mappings ---------- */
+    --background: var(--paper);
+    --foreground: var(--ink);
+    --card: var(--paper-raised);
+    --card-foreground: var(--ink);
+    --popover: var(--paper-raised);
+    --popover-foreground: var(--ink);
+    --primary: var(--ink);
+    --primary-foreground: var(--paper);
+    --secondary: var(--paper-deep);
+    --secondary-foreground: var(--ink);
+    --muted: var(--paper-deep);
+    --muted-foreground: var(--ink-soft);
+    --accent: var(--acc-lime);
+    --accent-foreground: var(--ink);
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 36 16% 84%;
+    --input: 36 16% 84%;
+    --ring: var(--ink);
+    --radius: 0.75rem;
   }
 
-  .light {
-    /* Light Mode (Warm, Dark Orange Theme) */
-    --background: 34 90% 95%;
-    /* Light warm beige */
-    --foreground: 24 45% 10%;
-    /* Dark brown for contrast */
-    --card: 34 80% 92%;
-    --card-foreground: 24 45% 15%;
-    --popover: 34 80% 90%;
-    --popover-foreground: 24 45% 20%;
-    --primary: 24 90% 50%;
-    /* Dark orange */
-    --primary-foreground: 34 80% 95%;
-    --secondary: 34 75% 80%;
-    --secondary-foreground: 24 45% 10%;
-    --muted: 34 75% 85%;
-    --muted-foreground: 24 45% 35%;
-    --accent: 34 75% 80%;
-    --accent-foreground: 24 45% 10%;
-    --destructive: 0 84% 55%;
-    --destructive-foreground: 24 45% 10%;
-    --border: 34 75% 75%;
-    --input: 34 75% 75%;
-    --ring: 24 90% 45%;
-    /* Stronger dark orange */
-    --chart-1: 24 90% 50%;
-    --chart-2: 34 80% 60%;
-    --chart-3: 14 85% 55%;
-    --chart-4: 24 80% 40%;
-    --chart-5: 44 85% 70%;
-    --skills-card-bg: linear-gradient(to right, #a7b2b8, #dbd7ca);
-    --radius: 0.5rem;
-  }
-}
+  .dark {
+    --paper: 30 7% 7%;
+    --paper-deep: 30 7% 10%;
+    --paper-raised: 30 7% 12%;
+    --ink: 42 30% 94%;
+    --ink-soft: 40 10% 68%;
+    --ink-faint: 36 7% 48%;
+    --rule: 212 18% 28%;
 
-@layer base {
+    --acc-lime: 72 80% 58%;
+    --acc-sky: 205 90% 66%;
+    --acc-pink: 340 88% 68%;
+    --acc-amber: 42 94% 60%;
+    --acc-violet: 252 80% 72%;
+
+    --background: var(--paper);
+    --foreground: var(--ink);
+    --card: var(--paper-raised);
+    --card-foreground: var(--ink);
+    --popover: var(--paper-raised);
+    --popover-foreground: var(--ink);
+    --primary: var(--ink);
+    --primary-foreground: var(--paper);
+    --secondary: var(--paper-deep);
+    --secondary-foreground: var(--ink);
+    --muted: var(--paper-deep);
+    --muted-foreground: var(--ink-soft);
+    --border: 30 6% 20%;
+    --input: 30 6% 20%;
+    --ring: var(--ink);
+  }
+
   * {
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+    /* clears the fixed navbar when jumping to an anchor */
+    scroll-padding-top: 6.5rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-paper text-ink font-sans antialiased;
+    overflow-x: hidden;
+    font-feature-settings: 'ss01', 'cv01';
+  }
+
+  ::selection {
+    background: hsl(var(--acc-lime));
+    color: hsl(var(--ink));
+  }
+
+  /* Thin, paper-coloured scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--paper-deep));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--ink) / 0.25);
+    border-radius: 999px;
+    border: 2px solid hsl(var(--paper-deep));
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--ink) / 0.45);
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--ink));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Hide the system cursor exactly where CustomCursor takes over: fine
+     pointers, desktop widths, motion allowed. Everywhere else it stays. */
+  @media (pointer: fine) and (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+    body,
+    body * {
+      cursor: none;
+    }
   }
 }
 
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
+@layer components {
+  /* ---------------------------------------------------------------
+     Paper surface: ruled lines + margin rule + grain.
+     Applied once on the page wrapper.
+  ---------------------------------------------------------------- */
+  .paper-surface {
+    position: relative;
+    background-color: hsl(var(--paper));
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 31px,
+      hsl(var(--rule) / 0.38) 31px,
+      hsl(var(--rule) / 0.38) 32px
+    );
   }
 
-  50% {
-    background-position: 100% 50%;
+  .paper-surface::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
   }
 
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0px);
+  .dark .paper-surface::before {
+    mix-blend-mode: screen;
+    opacity: 0.16;
   }
 
-  50% {
-    transform: translateY(-20px);
+  /* ---------------------------------------------------------------
+     Bento card
+  ---------------------------------------------------------------- */
+  .bento {
+    position: relative;
+    border-radius: theme('borderRadius.bento');
+    background: hsl(var(--paper-raised) / 0.82);
+    border: 1px solid hsl(var(--ink) / 0.1);
+    box-shadow: theme('boxShadow.paper');
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    overflow: hidden;
   }
 
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-/* Optimized animation timing */
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
+  .dark .bento {
+    background: hsl(var(--paper-raised) / 0.72);
+    border-color: hsl(var(--ink) / 0.14);
   }
 
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes pulse {
-
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
+  /* label used on top-left of most cards */
+  .bento-label {
+    @apply font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint;
   }
 
-  50% {
-    opacity: 0.8;
-    transform: scale(1.05);
+  /* ---------------------------------------------------------------
+     Highlighter marker behind text
+  ---------------------------------------------------------------- */
+  .marker {
+    position: relative;
+    display: inline-block;
+    isolation: isolate;
   }
-}
-
-.circular-menu {
-  position: fixed;
-  right: 5%;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 50;
-}
-
-.menu-item {
-  position: absolute;
-  transform-origin: 100px 0;
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.menu-text {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0;
-  transition: all 0.3s;
-  white-space: nowrap;
-  font-weight: 600;
-}
-
-.menu-item:hover .menu-text {
-  opacity: 1;
-  right: 60px;
-}
-
-.circular-progress {
-  position: relative;
-  width: 150px;
-  height: 150px;
-}
-
-.circular-progress svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.circular-progress .progress-value {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.project-card {
-  perspective: 1000px;
-  transition: all 0.5s;
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
-.project-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-.project-card:hover .project-card-inner {
-  transform: rotateY(180deg);
-}
-
-.project-card-front,
-.project-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 1rem;
-  overflow: hidden;
-}
-
-.project-card-back {
-  transform: rotateY(180deg);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-}
-
-.skill-item {
-  transition: transform 0.2s ease-out;
-  will-change: transform;
-  transform: translateZ(0);
-}
-
-.skill-item:hover {
-  transform: translateY(-10px) translateZ(0);
-}
-
-.rotating-circle {
-  animation: spin 30s linear infinite;
-}
-
-.section-divider {
-  position: relative;
-  height: 150px;
-  overflow: hidden;
-}
-
-.section-divider svg {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.section-divider.top svg {
-  top: 0;
-}
-
-.section-divider.bottom svg {
-  bottom: 0;
-  transform: rotate(180deg);
-}
-
-.hero-gradient {
-  background: radial-gradient(circle at center, hsl(var(--primary)) 0%, transparent 70%);
-  opacity: 0.2;
-  filter: blur(100px);
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
-
-.text-gradient {
-  background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--chart-2)));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.scroll-indicator {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 30px;
-  height: 50px;
-  border: 2px solid hsl(var(--primary));
-  border-radius: 15px;
-}
-
-.scroll-indicator::before {
-  content: '';
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  width: 6px;
-  height: 6px;
-  margin-left: -3px;
-  background-color: hsl(var(--primary));
-  border-radius: 50%;
-  animation: scroll 1.2s infinite;
-}
-
-@keyframes scroll {
-  0% {
-    transform: translateY(0);
-    opacity: 1;
+  .marker::after {
+    content: '';
+    position: absolute;
+    left: -0.18em;
+    right: -0.18em;
+    bottom: 0.04em;
+    height: 0.55em;
+    z-index: -1;
+    background: var(--marker-color, hsl(var(--acc-lime)));
+    border-radius: 2px 6px 3px 7px;
+    transform: rotate(-0.6deg);
+    /* ragged marker edge */
+    clip-path: polygon(
+      0% 12%, 2% 4%, 98% 0%, 100% 14%,
+      99% 88%, 97% 100%, 3% 96%, 0% 86%
+    );
+    transition: height 0.35s theme('transitionTimingFunction.spring');
+  }
+  .marker:hover::after {
+    height: 0.75em;
   }
 
-  100% {
-    transform: translateY(25px);
-    opacity: 0;
+  /* ---------------------------------------------------------------
+     Tape strip for photos
+  ---------------------------------------------------------------- */
+  .tape {
+    position: absolute;
+    width: 86px;
+    height: 26px;
+    background: hsl(48 60% 86% / 0.72);
+    border-left: 1px dashed hsl(var(--ink) / 0.1);
+    border-right: 1px dashed hsl(var(--ink) / 0.1);
+    box-shadow: 0 1px 3px hsl(var(--ink) / 0.14);
+    backdrop-filter: blur(1px);
+  }
+  .dark .tape {
+    background: hsl(48 20% 70% / 0.28);
+  }
+
+  /* ---------------------------------------------------------------
+     Hand-drawn ring (for circled text)
+  ---------------------------------------------------------------- */
+  .circled {
+    position: relative;
+  }
+  .circled::after {
+    content: '';
+    position: absolute;
+    inset: -14% -7%;
+    border: 2.5px solid hsl(var(--acc-pink));
+    border-radius: 48% 52% 50% 50% / 56% 46% 54% 44%;
+    transform: rotate(-2deg);
+    pointer-events: none;
+  }
+
+  /* dotted "cut here" divider */
+  .cut-line {
+    height: 1px;
+    background-image: linear-gradient(
+      to right,
+      hsl(var(--ink) / 0.26) 0 8px,
+      transparent 8px 16px
+    );
+    background-size: 16px 1px;
   }
 }
 
-.social-icon {
-  transition: all 0.3s;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* fades the edges of a marquee */
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 7%,
+      black 93%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 7%,
+      black 93%,
+      transparent
+    );
+  }
+
+  .pause-on-hover:hover * {
+    animation-play-state: paused;
+  }
 }
 
-.social-icon:hover {
-  color: hsl(var(--primary));
-  transform: translateY(-5px);
-}
-
-.experience-timeline::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 2px;
-  background: linear-gradient(to bottom, hsl(var(--primary)), hsl(var(--chart-2)));
-}
-
-.experience-dot {
-  position: absolute;
-  left: -8px;
-  top: 0;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: hsl(var(--background));
-  border: 2px solid hsl(var(--primary));
-}
-
-.experience-dot::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: hsl(var(--primary));
-}
-
-.skill-card {
-  background: linear-gradient(135deg,
-      hsla(var(--primary), 0.1) 0%,
-      hsla(var(--chart-2), 0.1) 100%);
-  backdrop-filter: blur(10px);
-  border: 1px solid transparent;
-  background: var(--skills-card-bg);
-  background-clip: padding-box;
-}
-
-.skill-card:hover {
-  background: linear-gradient(135deg,
-      hsla(var(--primary), 0.2) 0%,
-      hsla(var(--chart-2), 0.2) 100%);
-  border-color: hsla(var(--primary), 0.4);
-}
-
-.skill-icon {
-  background: linear-gradient(135deg,
-      hsl(var(--primary)) 0%,
-      hsl(var(--chart-2)) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Respect users who don't want motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

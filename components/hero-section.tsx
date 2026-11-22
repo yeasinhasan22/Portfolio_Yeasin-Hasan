@@ -1,352 +1,362 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, Facebook } from "lucide-react";
-import { useTheme } from "next-themes";
-import gsap from "gsap";
+import { useEffect, useState, useRef } from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, FolderOpen, MapPin, Copy, Check } from "lucide-react";
+import { profile, socials, capabilities } from "@/lib/content";
+import {
+  Reveal,
+  Magnetic,
+  SplitText,
+  Marquee,
+  Tape,
+  StaggerGroup,
+  StaggerItem,
+  toneColor,
+} from "@/components/primitives";
+import DeskObjects from "@/components/desk-objects";
 
-interface SocialLink {
-  icon: React.ReactNode;
-  url: string;
-  label: string;
+function LocalClock() {
+  const [time, setTime] = useState<string | null>(null);
+
+  // Rendered client-side only — the server has no idea what time it is in Dhaka.
+  useEffect(() => {
+    const tick = () =>
+      setTime(
+        new Intl.DateTimeFormat("en-GB", {
+          hour: "2-digit",
+          minute: "2-digit",
+          timeZone: profile.timezone,
+        }).format(new Date())
+      );
+    tick();
+    const id = setInterval(tick, 1000 * 20);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <span className="font-mono text-2xl font-medium tabular-nums text-ink">
+      {time ?? "--:--"}
+    </span>
+  );
+}
+
+function CopyEmail() {
+  const [copied, setCopied] = useState(false);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      window.location.href = `mailto:${profile.email}`;
+    }
+  };
+
+  return (
+    <button
+      onClick={copy}
+      data-cursor={copied ? "copied" : "copy"}
+      className="group/mail flex w-full items-center justify-between gap-2 rounded-xl border border-ink/10 bg-paper px-3 py-2 text-left transition-colors duration-300 hover:border-ink/30"
+    >
+      <span className="truncate font-mono text-[11px] text-ink-soft">
+        {profile.email}
+      </span>
+      {copied ? (
+        <Check className="h-3.5 w-3.5 shrink-0 text-ink" />
+      ) : (
+        <Copy className="h-3.5 w-3.5 shrink-0 text-ink-faint transition-colors group-hover/mail:text-ink" />
+      )}
+    </button>
+  );
 }
 
 export default function HeroSection() {
-  const { theme } = useTheme();
-  const [isMounted, setIsMounted] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const backgroundRef = useRef<HTMLDivElement>(null);
-  const particlesRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const { scrollYProgress } = useScroll();
-
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
-  const y = useTransform(scrollYProgress, [0, 0.2], [0, 100]);
-
-  const particleSeeds = useRef(
-    Array.from({ length: 20 }).map(() => ({
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      offsetX: Math.random() * 20 - 10,
-      offsetY: Math.random() * 20 - 10,
-    }))
-  );
-
-  useEffect(() => {
-    setIsMounted(true);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        setMousePosition({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top,
-        });
-      }
-    };
-
-    const bgCtx = gsap.context(() => {
-      if (backgroundRef.current) {
-        gsap.to(backgroundRef.current, {
-          backgroundPosition: "200% 0%",
-          duration: 15,
-          repeat: -1,
-          yoyo: true,
-          ease: "none",
-        });
-      }
-
-      if (particlesRef.current) {
-        particlesRef.current.innerHTML = "";
-        const numParticles = 25;
-        const colors = ["#B5FF6D", "#61BEFF", "#ffffff"];
-
-        for (let i = 0; i < numParticles; i++) {
-          const particle = document.createElement("div");
-          particle.className = "absolute rounded-full particle";
-
-          const size = Math.random() * 8 + 2;
-          const x = Math.random() * 100;
-          const y = Math.random() * 100;
-          const opacity = Math.random() * 0.5 + 0.1;
-          const color = colors[Math.floor(Math.random() * colors.length)];
-
-          particle.style.width = `${size}px`;
-          particle.style.height = `${size}px`;
-          particle.style.left = `${x}%`;
-          particle.style.top = `${y}%`;
-          particle.style.opacity = opacity.toString();
-          particle.style.backgroundColor = color;
-          particle.style.boxShadow = `0 0 ${size * 1.5}px ${color}`;
-
-          particlesRef.current.appendChild(particle);
-
-          const tl = gsap.timeline({ repeat: -1, yoyo: true });
-          tl.to(particle, {
-            x: `${(Math.random() - 0.5) * 250}`,
-            y: `${(Math.random() - 0.5) * 250}`,
-            rotation: 360,
-            duration: 5 + Math.random() * 7,
-            ease: "power1.inOut",
-          });
-        }
-      }
-    });
-
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener("mousemove", handleMouseMove);
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener("mousemove", handleMouseMove);
-      }
-      bgCtx.revert();
-    };
-  }, []);
-
-  if (!isMounted) return null;
-
-  const handleHireMe = () => {
-    window.open(
-      "mailto:yeasin.hasan022@gmail.com?subject=Job Opportunity&body=Hi Yeasin, I'd like to discuss a job opportunity with you.",
-      "_blank"
-    );
-  };
-
-  const socialLinks: SocialLink[] = [
-    {
-      icon: <Github className="h-5 w-5" />,
-      url: "https://github.com/yeasinhasan22/",
-      label: "GitHub",
-    },
-    {
-      icon: <Linkedin className="h-5 w-5" />,
-      url: "https://www.linkedin.com/in/yeasin-hasan-513064249/",
-      label: "LinkedIn",
-    },
-    {
-      icon: <Facebook className="h-5 w-5" />,
-      url: "https://www.facebook.com/yeasinhasan22/",
-      label: "Facebook",
-    },
-  ];
+  const sectionRef = useRef<HTMLElement>(null);
 
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      ref={containerRef}
+      ref={sectionRef}
+      className="relative px-[3vw] pb-16 pt-28 md:pt-32"
     >
-      {/* Background */}
-      <div className="absolute inset-0 -z-10">
-        <div
-          ref={backgroundRef}
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(270deg, #B5FF6D, #61BEFF, #062032, #081a08)",
-            backgroundSize: "400% 400%",
-            backgroundPosition: "0% 0%",
-          }}
-        />
-        <div ref={particlesRef} className="absolute inset-0 overflow-hidden" />
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 w-full h-full bg-[#B5FF6D]/5 mix-blend-overlay"></div>
-          <div className="absolute top-0 right-0 w-full h-full bg-[#61BEFF]/5 mix-blend-overlay"></div>
-        </div>
-      </div>
+      {/* throwable stationery — constrained to this section */}
+      <DeskObjects containerRef={sectionRef} />
 
-      {/* Content */}
-      <motion.div
-        className="container mx-auto px-4 z-10 pt-32"
-        style={{ opacity, scale, y }}
-      >
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-          {/* Profile */}
-          <motion.div
-            className="relative w-64 h-64 md:w-96 md:h-96 group"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
+      <div className="mx-auto w-full max-w-[1180px]">
+        {/* ---------- top annotation row ---------- */}
+        <Reveal className="mb-6 flex flex-wrap items-center justify-center gap-3">
+          <span
+            className="rotate-[-2deg] rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-ink"
+            style={{ background: toneColor("lime", 0.85) }}
           >
-            <div className="absolute w-full h-full rounded-full bg-gradient-to-br from-[#B5FF6D] to-[#61BEFF] opacity-20 blur-xl group-hover:opacity-30 transition-all duration-500"></div>
-            <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-[#B5FF6D]/20 shadow-xl group-hover:shadow-2xl transition-all duration-500">
-              <Image
-                src="/images/portfolio-convo.jpeg"
-                alt="Portrait of Yeasin Hasan"
-                fill
-                className="object-cover rounded-[30%] group-hover:scale-110 transition-transform duration-500"
-                priority
-              />
-              {particleSeeds.current.map((seed, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-2 h-2 rounded-full bg-[#B5FF6D]/50"
-                  animate={{
-                    x: mousePosition.x / 8 + seed.offsetX,
-                    y: mousePosition.y / 8 + seed.offsetY,
-                    opacity: [0.3, 0.8, 0.3],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                  }}
-                  style={{
-                    left: `${seed.left}%`,
-                    top: `${seed.top}%`,
-                  }}
-                />
-              ))}
-            </div>
-            <div className="absolute inset-0 w-full h-full pointer-events-none">
-              <svg viewBox="0 0 100 100" className="w-full h-full animate-spin-slow">
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="48"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="0.5"
-                  strokeDasharray="2,5"
-                  className="text-[#B5FF6D]/30"
-                />
-              </svg>
-            </div>
+            Ships to production
+          </span>
+          <span className="font-hand text-lg text-ink-soft">my name is</span>
+          <span
+            className="rotate-[2deg] rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-ink"
+            style={{ background: toneColor("amber", 0.85) }}
+          >
+            Sweats the details
+          </span>
+        </Reveal>
+
+        {/* ---------- name ---------- */}
+        <div className="relative mb-3 flex justify-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="relative inline-block rounded-2xl border-[2.5px] border-pink px-5 py-1.5 md:px-8 md:py-2"
+          >
+            <h1 className="font-display text-[clamp(2.6rem,10vw,6.5rem)] font-bold uppercase leading-[0.95] tracking-tight text-ink">
+              <SplitText text={profile.name} delay={0.15} />
+            </h1>
           </motion.div>
+        </div>
 
-          {/* Text */}
-          <div className="text-center lg:text-left max-w-2xl">
-            <motion.h2
-              className="text-xl md:text-2xl font-medium text-[#B5FF6D] mb-2 tracking-wider"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              Hello There, I'm
-            </motion.h2>
-            <motion.h1
-              className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#B5FF6D] to-[#61BEFF] animate-text-shimmer"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.05 }}
-            >
-              Yeasin Hasan
-            </motion.h1>
-            <motion.h3
-              className="text-lg md:text-xl font-semibold mb-6 text-white/80"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.1 }}
-            >
-              Full-Stack Developer | MERN & Next.js Specialist | Creative Technologist
-            </motion.h3>
-            <div className="space-y-6">
-              <motion.p
-                className="text-white/70 max-w-lg"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.15 }}
-              >
-                <p>A passionate Full-Stack Developer who loves turning ideas into smooth, meaningful digital experiences. I specialize in Next.js, MERN stack, and modern UI/UX, building fast, scalable, and user-focused applications.</p>
-                <br />
-                <p>With hands-on experience in real-world projects, from complex web platforms to fully redesigned mobile app prototypes, I bridge the gap between creativity and clean engineering. I enjoy crafting interfaces that feel good to use — and systems that perform even better.</p>
-                <br />
-                <p>I build with purpose, design with clarity, and deliver with impact.</p>
-              </motion.p>
+        {/* ---------- role + availability ---------- */}
+        <Reveal delay={0.25} className="mb-10 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+          <span className="rotate-[-1.5deg] font-hand text-xl text-ink-soft">
+            {profile.role}
+          </span>
+          <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-soft">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-lime" />
+            </span>
+            {profile.availableLabel}
+          </span>
+          <span className="rotate-[1.5deg] font-hand text-xl text-ink-soft">
+            {profile.location}
+          </span>
+        </Reveal>
 
-              {/* Social Icons */}
-              <motion.div
-                className="flex justify-center lg:justify-start space-x-4 mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.2 }}
-              >
-                {socialLinks.map((link, index) => (
-                  <motion.a
-                    key={index}
-                    href={link.url}
+        {/* =================== BENTO GRID =================== */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-6 lg:grid-cols-12">
+          {/* ---- headline (big) ---- */}
+          <Reveal
+            delay={0.05}
+            className="sm:col-span-6 lg:col-span-7 lg:row-span-2"
+          >
+            <div className="bento group flex h-full flex-col justify-between gap-6 p-6 md:p-8">
+              <span className="bento-label">01 / Intro</span>
+
+              <h2 className="font-display text-[clamp(1.8rem,4.2vw,3.1rem)] font-bold leading-[1.04] tracking-tight text-ink text-balance">
+                {profile.headline[0]}{" "}
+                <span
+                  className="marker"
+                  style={{ ["--marker-color" as string]: toneColor("lime") }}
+                >
+                  {profile.headline[1]}
+                </span>
+              </h2>
+
+              <p className="max-w-[52ch] text-[15px] leading-relaxed text-ink-soft text-pretty">
+                {profile.intro}
+              </p>
+
+              <div className="flex flex-wrap items-center gap-2.5">
+                <Magnetic strength={0.25}>
+                  <a
+                    href="#contact"
+                    data-cursor="say hi"
+                    className="flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-paper transition-transform duration-300 hover:scale-[1.03]"
+                  >
+                    Contact me
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
+                </Magnetic>
+                <Magnetic strength={0.25}>
+                  <a
+                    href="#work"
+                    data-cursor="browse"
+                    className="flex items-center gap-2 rounded-full border-2 border-ink px-5 py-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-ink transition-colors duration-300 hover:bg-ink hover:text-paper"
+                  >
+                    <FolderOpen className="h-3.5 w-3.5" />
+                    See the work
+                  </a>
+                </Magnetic>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* ---- portrait ---- */}
+          <Reveal delay={0.12} className="sm:col-span-3 lg:col-span-5">
+            <div className="bento group relative h-[400px] overflow-hidden sm:h-full sm:min-h-[360px]">
+              <Tape className="-left-4 top-5 z-30" rotate={-28} />
+              <Tape className="-right-4 top-5 z-30" rotate={28} />
+
+              {/* --- backdrop shapes, back to front --- */}
+
+              {/* halftone dot field */}
+              <span
+                aria-hidden
+                className="absolute inset-0 opacity-[0.16]"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(hsl(var(--ink)) 1px, transparent 1px)",
+                  backgroundSize: "9px 9px",
+                }}
+              />
+
+              {/* rotated square, top right */}
+              <span
+                aria-hidden
+                className="absolute right-5 top-7 h-14 w-14 rotate-12 rounded-xl border-2 border-ink/20 transition-transform duration-700 ease-spring group-hover:rotate-[22deg]"
+              />
+
+              {/* small solid dot, bottom left */}
+              <span
+                aria-hidden
+                className="absolute bottom-[86px] left-5 h-5 w-5 rounded-full"
+                style={{ background: toneColor("pink", 0.9) }}
+              />
+
+              {/* baseline the arch stands on */}
+              <span
+                aria-hidden
+                className="absolute inset-x-0 bottom-[62px] h-px bg-ink/15"
+              />
+
+              {/* --- arch: colour plate behind, photo in front --- */}
+              <div className="absolute inset-x-[13%] bottom-[62px] top-[9%] z-10">
+                {/* offset plate, like a misregistered print layer */}
+                <span
+                  aria-hidden
+                  className="absolute inset-0 translate-x-[11px] translate-y-[9px] rounded-t-full transition-transform duration-700 ease-spring group-hover:translate-x-[16px] group-hover:translate-y-[13px]"
+                  style={{ background: toneColor("lime", 0.9) }}
+                />
+                {/* thin outline, offset the other way */}
+                <span
+                  aria-hidden
+                  className="absolute inset-0 -translate-x-[9px] -translate-y-[7px] rounded-t-full border border-ink/25"
+                />
+                {/* the photo, clipped to the arch */}
+                <div className="absolute inset-0 overflow-hidden rounded-t-full border border-ink/12 bg-paper-deep">
+                  <Image
+                    src={profile.portrait}
+                    alt={`Portrait of ${profile.name}`}
+                    fill
+                    priority
+                    sizes="(max-width: 640px) 100vw, 40vw"
+                    /* `cover` + top anchor fills the arch and keeps the head
+                       whole — the photo has enough headroom that the curve
+                       never reaches it. */
+                    className="object-cover object-top grayscale transition-all duration-700 ease-spring group-hover:scale-[1.04] group-hover:grayscale-0"
+                  />
+                </div>
+              </div>
+
+              {/* --- caption chip --- */}
+              <div className="absolute inset-x-0 bottom-0 z-20 flex items-center justify-between gap-2 border-t border-ink/10 bg-paper-raised/85 px-4 py-3 backdrop-blur">
+                <p className="font-hand text-lg leading-none text-ink">
+                  that&apos;s me 👋
+                </p>
+                <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-ink-faint">
+                  Dhaka · 2026
+                </span>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* ---- local time ---- */}
+          <Reveal delay={0.18} className="sm:col-span-3 lg:col-span-3">
+            <div className="bento flex h-full flex-col justify-between gap-3 p-5">
+              <span className="bento-label">Local time</span>
+              <LocalClock />
+              <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">
+                <MapPin className="h-3 w-3" />
+                Dhaka · GMT+6
+              </span>
+            </div>
+          </Reveal>
+
+          {/* ---- email ---- */}
+          <Reveal delay={0.22} className="sm:col-span-3 lg:col-span-2">
+            <div className="bento flex h-full flex-col justify-between gap-3 p-5">
+              <span className="bento-label">Say hello</span>
+              <CopyEmail />
+            </div>
+          </Reveal>
+
+          {/* ---- stats strip ---- */}
+          <Reveal delay={0.26} className="sm:col-span-6 lg:col-span-12">
+            <StaggerGroup className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+              {profile.stats.map((s) => (
+                <StaggerItem key={s.label}>
+                  <div className="bento group flex h-full flex-col gap-1 p-5 transition-transform duration-500 ease-spring hover:-translate-y-1">
+                    <span className="font-display text-3xl font-bold tracking-tight text-ink md:text-4xl">
+                      {s.value}
+                    </span>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">
+                      {s.label}
+                    </span>
+                  </div>
+                </StaggerItem>
+              ))}
+            </StaggerGroup>
+          </Reveal>
+
+          {/* ---- socials ---- */}
+          <Reveal delay={0.3} className="sm:col-span-6 lg:col-span-5">
+            <div className="bento flex h-full flex-col gap-3 p-5">
+              <span className="bento-label">Elsewhere</span>
+              <div className="grid grid-cols-2 gap-2">
+                {socials.map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={link.label}
-                    className="p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all duration-300 group"
-                    whileHover={{
-                      y: -5,
-                      scale: 1.1,
-                      rotate: Math.random() * 10 - 5,
-                    }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    className="group/s flex items-center justify-between rounded-xl border border-ink/10 px-3 py-2 transition-all duration-300 hover:border-ink hover:bg-ink hover:text-paper"
                   >
-                    {link.icon}
-                  </motion.a>
-                ))}
-              </motion.div>
-
-              {/* Buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.25 }}
-                className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-6"
-              >
-                <Button
-                  onClick={handleHireMe}
-                  className="bg-[#B5FF6D] hover:bg-[#B5FF6D]/90 text-black px-8 py-4 rounded-full text-lg font-medium shadow-lg hover:shadow-xl transition-all group"
-                >
-                  <Mail className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
-                  Contact Me
-                </Button>
-                <Button
-                  asChild
-                  className="bg-[#B5FF6D] hover:bg-[#B5FF6D]/90 text-black px-8 py-4 rounded-full text-lg font-medium shadow-lg hover:shadow-xl transition-all group"
-                >
-                  <a
-
-                    href="/CV-Yeasin Hasan-Software-Engineer_UIU.pdf"
-                    download
-                  >
-                    <svg className="mr-2 h-5 w-5 group-hover:animate-bounce" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
-                    </svg>
-                    Download CV
+                    <span className="font-mono text-[11px] uppercase tracking-[0.12em]">
+                      {s.label}
+                    </span>
+                    <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover/s:translate-x-0.5 group-hover/s:-translate-y-0.5" />
                   </a>
-                </Button>
-
-              </motion.div>
+                ))}
+              </div>
             </div>
-          </div>
-        </div>
-      </motion.div>
+          </Reveal>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        className="hidden sm:absolute sm:bottom-10 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:flex sm:flex-col sm:items-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.5 }}
-      >
-        <div className="w-0.5 h-10 bg-gradient-to-b from-[#B5FF6D] to-[#61BEFF] mb-2 animate-pulse"></div>
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-        >
-          <svg
-            className="w-6 h-6 text-[#B5FF6D]"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
-        </motion.div>
-      </motion.div>
+          {/* ---- capability marquee ---- */}
+          <Reveal delay={0.34} className="sm:col-span-6 lg:col-span-7">
+            <div className="bento flex h-full flex-col justify-center gap-4 py-5">
+              <span className="bento-label px-5">What I do</span>
+              <Marquee speed={30}>
+                {capabilities.map((c, i) => (
+                  <span
+                    key={`${c.label}-${i}`}
+                    className="whitespace-nowrap rounded-lg px-3.5 py-1.5 text-sm font-medium text-ink"
+                    style={{
+                      background: toneColor(c.tone, 0.8),
+                      transform: `rotate(${i % 2 ? 1 : -1}deg)`,
+                    }}
+                  >
+                    {c.label}
+                  </span>
+                ))}
+              </Marquee>
+              <Marquee speed={38} reverse>
+                {["PostgreSQL", "Supabase", "MongoDB", "Docker", "Figma", "JIRA", "Express", "Redux"].map(
+                  (t, i) => (
+                    <span
+                      key={`${t}-${i}`}
+                      className="whitespace-nowrap rounded-lg border border-ink/12 px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-soft"
+                    >
+                      {t}
+                    </span>
+                  )
+                )}
+              </Marquee>
+            </div>
+          </Reveal>
+        </div>
+      </div>
     </section>
   );
 }
