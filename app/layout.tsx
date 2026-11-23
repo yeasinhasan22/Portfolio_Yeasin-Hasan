@@ -8,7 +8,7 @@ import CustomCursor from '@/components/CustomCursor';
 
 /* Grotesk for display, Inter for body, mono for labels, Caveat for the
    handwritten annotations that give the paper layer its personality. */
-/* All four are variable fonts, so no `weight` is passed — requesting explicit
+/* All four are variable fonts, so no `weight` is passed: requesting explicit
    weights makes next/font fetch per-weight CSS from Google, and that fetch
    returning anything unexpected fails the production build outright. */
 const display = Space_Grotesk({
@@ -38,7 +38,7 @@ const hand = Caveat({
 export const metadata: Metadata = {
   title: 'Yeasin Hasan | Software Engineer',
   description:
-    'Full-Stack Software Engineer in Dhaka — Next.js, React and the MERN stack. Design to deployment, including a voting platform that served 100K+ live users.',
+    'Full-Stack Software Engineer in Dhaka: Next.js, React and the MERN stack. Design to deployment, including a voting platform that served 100K+ live users.',
   icons: '/images/yeasin-hasan.png',
   metadataBase: new URL('https://yeasinhasan.vercel.app'),
   // Next 13 still takes themeColor on `metadata` (the `viewport` export landed in 14).
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Yeasin Hasan | Software Engineer',
     description:
-      'Full-Stack Software Engineer — Next.js, React and the MERN stack. Design to deployment.',
+      'Full-Stack Software Engineer: Next.js, React and the MERN stack. Design to deployment.',
     url: 'https://yeasinhasan.vercel.app',
     siteName: 'Yeasin Hasan',
     // Relative paths resolve against `metadataBase` above.
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
         width: 1919,
         height: 951,
         type: 'image/jpeg',
-        alt: 'Yeasin Hasan — Software Engineer',
+        alt: 'Yeasin Hasan, Software Engineer',
       },
     ],
     type: 'website',
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Yeasin Hasan | Software Engineer',
     description:
-      'Full-Stack Software Engineer — Next.js, React and the MERN stack.',
+      'Full-Stack Software Engineer: Next.js, React and the MERN stack.',
     images: ['/images/preview.jpg'],
   },
 };

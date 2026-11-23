@@ -12,7 +12,7 @@ import React, { useRef, useCallback } from "react";
 import { cn } from "@/lib/utils";
 
 /* ------------------------------------------------------------------
-   Reveal — scroll-triggered entrance. The workhorse of the page.
+   Reveal: scroll-triggered entrance. The workhorse of the page.
 ------------------------------------------------------------------- */
 export function Reveal({
   children,
@@ -46,7 +46,7 @@ export function Reveal({
 }
 
 /* ------------------------------------------------------------------
-   Stagger helpers — parent sets rhythm, children inherit it.
+   Stagger helpers: parent sets rhythm, children inherit it.
 ------------------------------------------------------------------- */
 export function StaggerGroup({
   children,
@@ -103,7 +103,7 @@ export function StaggerItem({
 }
 
 /* ------------------------------------------------------------------
-   Magnetic — element leans toward the cursor, springs back on exit.
+   Magnetic: element leans toward the cursor, springs back on exit.
 ------------------------------------------------------------------- */
 export function Magnetic({
   children,
@@ -150,7 +150,7 @@ export function Magnetic({
 }
 
 /* ------------------------------------------------------------------
-   TiltCard — 3D tilt plus a light sheen that tracks the pointer.
+   TiltCard: 3D tilt plus a light sheen that tracks the pointer.
 ------------------------------------------------------------------- */
 export function TiltCard({
   children,
@@ -212,7 +212,7 @@ export function TiltCard({
 }
 
 /* ------------------------------------------------------------------
-   Marquee — seamless infinite scroller (duplicates its children).
+   Marquee: seamless infinite scroller (duplicates its children).
 ------------------------------------------------------------------- */
 export function Marquee({
   children,
@@ -246,7 +246,7 @@ export function Marquee({
 }
 
 /* ------------------------------------------------------------------
-   Tape — the little translucent strips holding photos down.
+   Tape: the little translucent strips holding photos down.
 ------------------------------------------------------------------- */
 export function Tape({
   className,
@@ -265,7 +265,7 @@ export function Tape({
 }
 
 /* ------------------------------------------------------------------
-   SplitText — per-character entrance for headlines.
+   SplitText: per-character entrance for headlines.
 ------------------------------------------------------------------- */
 export function SplitText({
   text,

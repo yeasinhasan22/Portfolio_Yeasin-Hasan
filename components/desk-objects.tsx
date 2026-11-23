@@ -47,7 +47,7 @@ function Draggable({
         "absolute select-none touch-none will-change-transform",
         className
       )}
-      title="Drag me — double-click to put me back"
+      title="Drag me, double-click to put me back"
     >
       {children}
     </motion.div>

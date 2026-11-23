@@ -20,7 +20,7 @@ import DeskObjects from "@/components/desk-objects";
 function LocalClock() {
   const [time, setTime] = useState<string | null>(null);
 
-  // Rendered client-side only — the server has no idea what time it is in Dhaka.
+  // Rendered client-side only: the server has no idea what time it is in Dhaka.
   useEffect(() => {
     const tick = () =>
       setTime(
@@ -82,7 +82,7 @@ export default function HeroSection() {
       ref={sectionRef}
       className="relative px-[3vw] pb-16 pt-28 md:pt-32"
     >
-      {/* throwable stationery — constrained to this section */}
+      {/* throwable stationery, constrained to this section */}
       <DeskObjects containerRef={sectionRef} />
 
       <div className="mx-auto w-full max-w-[1180px]">
@@ -243,9 +243,9 @@ export default function HeroSection() {
                     priority
                     sizes="(max-width: 640px) 100vw, 40vw"
                     /* `cover` + top anchor fills the arch and keeps the head
-                       whole — the photo has enough headroom that the curve
+                       whole: the photo has enough headroom that the curve
                        never reaches it. */
-                    className="object-cover object-top grayscale transition-all duration-700 ease-spring group-hover:scale-[1.04] group-hover:grayscale-0"
+                    className="object-cover object-top transition-transform duration-700 ease-spring group-hover:scale-[1.04]"
                   />
                 </div>
               </div>

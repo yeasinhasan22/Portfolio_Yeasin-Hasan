@@ -41,7 +41,7 @@ export default function AboutSection() {
               </p>
               <div className="cut-line my-6" />
               <p className="text-[15px] leading-relaxed text-ink-soft text-pretty">
-                I started in design — Figma, prototypes, motion — and kept
+                I started in design (Figma, prototypes, motion) and kept
                 following the problem downstream until I was writing the
                 backend too. That path is why I&apos;m comfortable owning a
                 feature end to end: the interface, the API behind it, the

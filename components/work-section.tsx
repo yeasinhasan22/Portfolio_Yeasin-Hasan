@@ -80,12 +80,12 @@ function ProjectModal({
               <X className="h-4 w-4" />
             </button>
 
-            {/* contained, like the cards — these are screenshots, and
+            {/* contained, like the cards: these are screenshots, and
                 cropping one loses the part that makes it worth showing */}
             <div className="relative aspect-[2/1] w-full overflow-hidden border-b border-ink/10 bg-paper-deep">
               <Image
                 src={project.image}
-                alt={`${project.title} — screenshot`}
+                alt={`${project.title} screenshot`}
                 fill
                 sizes="(max-width: 768px) 100vw, 768px"
                 className="object-contain"
@@ -212,7 +212,7 @@ function CardFace({
       <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-ink/10 bg-paper-deep sm:aspect-[2/1]">
         <Image
           src={project.image}
-          alt={`${project.title} — screenshot`}
+          alt={`${project.title} screenshot`}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 92vw, 1180px"
           className="object-contain"
@@ -375,7 +375,7 @@ function StackCard({
 }
 
 /* ================================================================== */
-/* Sticky rail — where you are in the pile, and a way to jump          */
+/* Sticky rail: where you are in the pile, and a way to jump           */
 /* ================================================================== */
 function StackRail({
   list,
@@ -503,7 +503,7 @@ function StackArchive({
   });
 
   /* Smooth the raw progress once, here, and hand the same spring to every
-     card — so the whole pile settles together instead of each card chasing
+     card, so the whole pile settles together instead of each card chasing
      the scroll wheel on its own. */
   const progress = useSpring(scrollYProgress, {
     stiffness: 110,

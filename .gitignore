@@ -38,5 +38,5 @@ dev-server.log
 *.tsbuildinfo
 next-env.d.ts
 
-# personal documents — kept out of public/ so they are never served
+# personal documents, kept out of public/ so they are never served
 /private

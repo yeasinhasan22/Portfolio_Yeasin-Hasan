@@ -40,7 +40,7 @@ export default function CustomCursor() {
     setEnabled(fine && !calm);
   }, []);
 
-  // Rotate the dashed ring continuously — cheap, runs off the MotionValue loop.
+  // Rotate the dashed ring continuously: cheap, runs off the MotionValue loop.
   useAnimationFrame((_, delta) => {
     if (!spin.current) return;
     angle.current = (angle.current + delta * 0.03) % 360;

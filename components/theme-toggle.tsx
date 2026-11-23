@@ -17,7 +17,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      // Stays generic until mounted — the server can't know the resolved theme,
+      // Stays generic until mounted: the server can't know the resolved theme,
       // and a theme-specific label here would mismatch on hydration.
       aria-label={
         mounted

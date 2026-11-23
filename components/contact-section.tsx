@@ -21,7 +21,7 @@ export default function ContactSection() {
       setCopied(key);
       setTimeout(() => setCopied(null), 1800);
     } catch {
-      /* clipboard blocked — the mailto links below still work */
+      /* clipboard blocked: the mailto links below still work */
     }
   };
 
@@ -55,7 +55,7 @@ export default function ContactSection() {
               </h3>
 
               <p className="max-w-[48ch] text-[15px] leading-relaxed text-ink-soft text-pretty">
-                I reply to everything — a role, a project, a half-formed idea
+                I reply to everything: a role, a project, a half-formed idea
                 you want a second opinion on. Pick whichever fits and the email
                 writes its own subject line.
               </p>
